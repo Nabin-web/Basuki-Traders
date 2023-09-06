@@ -20,14 +20,12 @@ const HeroSection = () => {
           Get Started
         </a>
       </div>
-      <div className="relative w-full h-full">
+      <div className="relative w-[600px] h-[400px]">
         <Image
           src="/herosection.jpg"
-          priority
-          height={600}
-          width={600}
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADA..."
-          placeholder="blur"
+          className=" w-full h-full"
+          fill
+          quality={85}
         />
       </div>
     </section>
