@@ -19,9 +19,9 @@ uploaderHelper.uploadFiles = (destinationPath, uploadType, fieldData) => {
   var storage = multer.diskStorage({
     destination: destinationPath,
     filename: async (req, file, cb) => {
-      const randomString = await otherHelpers.generateRandomHexString(15);
-      var cleanFilename = file.originalname.replace(/[\\/\\&\\?\\$\\%]/g, "");
-      cb(null, randomString + "-" + cleanFilename);
+      // Replace invalid characters with an empty string
+      const parseName = file.originalname.replace(/[\\/\\&\\?\\$\\%]/g, "");
+      cb(null, Date.now() + "-" + parseName);
     },
   });
   const uploader = multer({
@@ -45,27 +45,30 @@ uploaderHelper.uploadFiles = (destinationPath, uploadType, fieldData) => {
 
   return (fileUpload = (req, res, next) => {
     upload(req, res, function (error) {
-      if (error.code == "LIMIT_FILE_SIZE") {
-        return otherHelpers.sendResponse(
-          res,
-          httpStatus.NOT_ACCEPTABLE,
-          false,
-          error,
-          null,
-          `Filesize must be greater than ${temp}MB.`,
-          null
-        );
-      } else {
-        return otherHelpers.sendResponse(
-          res,
-          httpStatus.NOT_ACCEPTABLE,
-          false,
-          error,
-          null,
-          `${error.code}`,
-          null
-        );
+      if (error) {
+        if (error && error.code == "LIMIT_FILE_SIZE") {
+          return otherHelpers.sendResponse(
+            res,
+            httpStatus.NOT_ACCEPTABLE,
+            false,
+            error,
+            null,
+            `FileSize must be greater than ${temp}MB`,
+            null
+          );
+        } else {
+          return otherHelpers.sendResponse(
+            res,
+            httpStatus.NOT_ACCEPTABLE,
+            false,
+            error,
+            null,
+            `${error && error.code}`,
+            null
+          );
+        }
       }
+      next();
     });
   });
 };
