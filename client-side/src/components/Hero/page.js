@@ -3,13 +3,13 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <div className="h-screen flex-1 flex mt-32 mx-auto">
-      <div className="text-center mx-auto">
-        <h1 className="text-6xl font-semibold tracking-wider">
+    <section className="h-screen grid grid-cols-1  sm:grid-cols-2 mt-20 mx-auto">
+      <div className="text-center mx-auto pt-16">
+        <h1 className=" text-2xl sm:text-6xl font-semibold tracking-wider">
           Welcome to <br />
           <span className=" text-orange-500 ">Ashirbad Traders !</span>
         </h1>
-        <p className="font-light text-3xl mt-5 tracking-wide">
+        <p className="font-light text-xl sm:text-3xl mt-5 tracking-wide">
           One stop shop for you <br /> all you{" "}
           <span className=" text-orange-500">Grocery Needs</span>
         </p>
@@ -20,17 +20,17 @@ const HeroSection = () => {
           Get Started
         </a>
       </div>
-      <div className=" relative w-1/2 h-1/2">
+      <div className="relative w-full h-full">
         <Image
           src="/herosection.jpg"
           priority
-          style={{ objectFit: "contain" }}
-          fill
+          height={600}
+          width={600}
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADA..."
           placeholder="blur"
         />
       </div>
-    </div>
+    </section>
   );
 };
 
