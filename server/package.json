@@ -21,7 +21,8 @@
     "path": "^0.12.7",
     "request-ip": "^2.1.3",
     "joi": "^17.9.2",
-    "joi-objectid": "^4.0.2"
+    "joi-objectid": "^4.0.2",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
