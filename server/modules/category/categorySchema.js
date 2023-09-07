@@ -14,12 +14,8 @@ const categorySchema = new schema({
     required: false,
     ref: "category",
   },
-  child_category: [
-    {
-      type: schema.Types.ObjectId,
-      required: false,
-      ref: "category",
-    },
+  category_hierarchy: [
+    { type: schema.Types.ObjectId, required: false, ref: "category" },
   ],
 });
 
