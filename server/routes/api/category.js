@@ -4,5 +4,8 @@ const categoryController = require("../../modules/category/categoryController");
 const validator = require("../../modules/category/categoryValidator");
 
 router.post("/category", validator.validate, categoryController.addCategory);
+router.delete("/category/:id", categoryController.deleteCategory);
+router.get("/category", categoryController.getCategory);
+router.get("/dropdown", categoryController.getCategoryDropdown);
 
 module.exports = router;
