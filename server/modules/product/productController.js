@@ -164,4 +164,52 @@ productController.getProducts = async (req, res, next) => {
   }
 };
 
+productController.getProductDetail = async (req, res, next) => {
+  try {
+    const product_id = req.params.id;
+
+    if (product_id) {
+      const product = await productSchema
+        .findOne({
+          _id: product_id,
+          is_deleted: false,
+        })
+        .populate([{ path: "image", select: "path filename" }]);
+      if (product) {
+        return otherHelpers.sendResponse(
+          res,
+          httpStatus.OK,
+          true,
+          product,
+          null,
+          "Product get success.",
+          null
+        );
+      } else {
+        return otherHelpers.sendResponse(
+          res,
+          httpStatus.NOT_FOUND,
+          false,
+          null,
+          null,
+          "Product not found.",
+          null
+        );
+      }
+    } else {
+      return otherHelpers.sendResponse(
+        res,
+        httpStatus.BAD_REQUEST,
+        false,
+        null,
+        null,
+        "Product id is required.",
+        null
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = productController;

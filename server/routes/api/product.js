@@ -6,5 +6,6 @@ const validator = require("../../modules/product/productValidator");
 router.post("/", validator.validateSaveProduct, productController.saveProduct);
 router.delete("/:id", productController.deleteProduct);
 router.get("/", productController.getProducts);
+router.get("/:id", productController.getProductDetail);
 
 module.exports = router;
