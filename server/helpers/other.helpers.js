@@ -87,4 +87,71 @@ otherHelpers.getQuerySendResponse = async (
   }
 };
 
+otherHelpers.parseFilters = (req, defaults, is_deleted, default_sort) => {
+  const size_default = defaults ? defaults : 10;
+  let page;
+  let size;
+  let sortQuery = { _id: -1 };
+  let sort_key;
+  let searchQuery = {};
+  let populate = [];
+  let selectQuery = { __v: 0 };
+  if (default_sort) {
+    sortQuery = default_sort;
+  }
+  if (is_deleted === undefined) {
+  } else if (is_deleted === null) {
+  } else {
+    if (!isNaN(is_deleted)) {
+      searchQuery = { ...searchQuery, is_deleted: is_deleted };
+      selectQuery = {
+        ...selectQuery,
+        is_deleted: 0,
+        deleted_at: 0,
+        deleted_by: 0,
+      };
+    }
+  }
+  if (req.query.find_is_active && req.query.find_is_active.length >= 3) {
+    let is_active = req.query.find_is_active == "true" ? true : false;
+    searchQuery = { ...searchQuery, is_active: is_active };
+  }
+  if (req.query.page && !isNaN(req.query.page) && req.query.page != 0) {
+    page = Math.abs(req.query.page);
+  } else {
+    page = 1;
+  }
+  if (req.query.size == "") {
+    size = size_default;
+  } else if (
+    (req.query.size && !isNaN(req.query.size)) ||
+    req.query.size >= 0
+  ) {
+    size = Math.abs(req.query.size);
+  } else {
+    size = size_default;
+  }
+  if (req.query.sort) {
+    let sort = req.query.sort.split(":");
+    sort_key = sort[0];
+
+    let sort_order = sort[1] === "desc" ? -1 : 1;
+    sortQuery = { [sort_key]: sort_order };
+    // sortQuery = {  sort_key,sort_order:sort_order };
+
+    // let sortfield = req.query.sort.slice(1);
+    // let sortby = req.query.sort.charAt(0);
+    // if (sortby == 1 && !isNaN(sortby) && sortfield) {
+    //   //one is ascending
+    //   sortQuery = sortfield;
+    // } else if (sortby == 0 && !isNaN(sortby) && sortfield) {
+    //   //zero is descending
+    //   sortQuery = '-' + sortfield;
+    // } else {
+    //   sortQuery = '';
+    // }
+  }
+  return { page, size, sortQuery, searchQuery, selectQuery, populate };
+};
+
 module.exports = otherHelpers;
