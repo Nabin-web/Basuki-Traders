@@ -70,12 +70,12 @@ const PopularProduct = () => {
     },
   };
   return (
-    <section className=" px-10">
+    <section className=" px-10 mb-10 ">
       <h1 className=" text-2xl mb-10">Popular Product</h1>
-      <div className=" relative">
+      <div className=" relative ">
         <Slider {...settings}>
           {data.map((each, index) => (
-            <div className="w-[100%] bg-[#fab1a0] shadow-xl" key={index}>
+            <div className="w-[100%] shadow-2xl  mb-10" key={index}>
               <div className="relative h-[250px] w-full  mx-auto">
                 <Image
                   src="/herosection.jpg"
