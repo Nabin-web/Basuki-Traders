@@ -79,8 +79,9 @@ productTypeController.getProductTypeDetail = async (req, res, next) => {
     if (productType_id) {
       const product = await productTypeSchema.findOne({
         _id: productType_id,
-        is_deleted: false,
       });
+
+      console.log({ product });
       if (product) {
         return otherHelpers.sendResponse(
           res,
@@ -125,7 +126,6 @@ productTypeController.deleteProductType = async (req, res, next) => {
     if (product_type_id) {
       const product = await productTypeSchema.findOne({
         _id: product_type_id,
-        is_deleted: false,
       });
       if (product) {
         const deleted = await productTypeSchema.findOneAndUpdate(
