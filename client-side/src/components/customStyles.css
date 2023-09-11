@@ -1,0 +1,19 @@
+.custom-option {
+  padding: 0px 5px 1px !important;
+  font-weight: normal;
+  font-size: 12px;
+  min-height: 1.2rem;
+  @apply text-black;
+}
+.custom-option:hover {
+  background: #5897fb;
+  color: white;
+}
+.custom-option.custom-select__option--is-focused {
+  background: #5897fb;
+  color: white;
+}
+.custom-option.custom-select__option--is-selected {
+  background: #5897fb;
+  color: white;
+}

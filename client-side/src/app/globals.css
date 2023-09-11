@@ -13,3 +13,23 @@
 .slick-list {
   margin-right: -30px;
 }
+
+.inputbox {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  background: #fff;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.inputbox:focus {
+  outline: 0;
+  box-shadow: 0 0 4px #80bdff;
+  border: 1px solid #80bdff;
+}
+
+.inputbox::placeholder {
+  @apply capitalize;
+}

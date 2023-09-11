@@ -1,0 +1,70 @@
+table th {
+  text-align: left;
+}
+table td {
+  vertical-align: top;
+}
+
+table.x-scroll {
+  display: block !important;
+  overflow: auto;
+}
+
+.orderTable div table td {
+  vertical-align: middle;
+}
+
+.Review {
+  padding: 0;
+}
+
+.ReviewPagination {
+  padding: 0;
+  border: none !important;
+}
+
+.tblactive {
+  background-color: rgba(214, 130, 21, 0.09);
+}
+
+/* table.tblsm {
+  font-size: 12px;
+  white-space: nowrap;
+} */
+
+.tblsm .fsdet > .fsdet_title {
+  height: 18px;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.fsdet > .fsdet_title_twocol {
+  height: 36px;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.table th {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.rnmttable tr:hover td {
+  background: #eeeeee;
+}
+
+.rnmttable tr th:first-child,
+.rnmttable tr td:first-child {
+  width: 40px;
+  text-align: center;
+}
+
+.nohovertbl > div .rnmttable tr:hover td {
+  background: transparent;
+}

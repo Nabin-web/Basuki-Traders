@@ -1,3 +1,11 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
+export const SSR_URL = process.env.NEXT_PUBLIC_SSR_BASE;
+export const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE;
+
+export const options = {
+  "Content-Type": "application/json",
+};
+
 function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
@@ -71,3 +79,33 @@ export async function Api(
     return error;
   }
 }
+
+export const fetcher = async ({ url, headers }) => {
+  try {
+    const res = await fetch(url, { method: "GET", headers: headers });
+    const response = await res.json();
+    if (response.success) {
+      return response;
+    }
+    if (response.success == false) {
+      const error = response;
+      if (error?.msg && error?.msg === "JsonWebTokenError") {
+        // network error
+      } else if (error && error?.msg === "Session Expired") {
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.clear();
+        setTimeout(() => {
+          window.location.pathname !== "/user/account" &&
+            window.location.replace(`${publicUrl}/user/account`);
+        }, 500);
+        throw new Error("Session Expired");
+        // session expire error
+      } else {
+        throw error;
+      }
+    }
+  } catch (error) {
+    return error;
+  }
+};

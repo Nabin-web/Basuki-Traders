@@ -8,7 +8,8 @@ const httpStatus = require("http-status");
 const otherHelpers = require("./helpers/other.helpers");
 const path = require("path");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
+const requestIp = require("request-ip");
 const mongoURI = process.env.MONGODB_URI;
 const port = process.env.PORT || "5000";
 const appName = process.env.APP_NAME || "Basuki Traders";
@@ -33,6 +34,23 @@ app.use(
     extended: true,
   })
 );
+
+// cors setup
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin"],
+    credentials: true,
+    preflightContinue: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
+app.use(function (req, res, next) {
+  req.client_ip_address = requestIp.getClientIp(req);
+  next();
+});
 
 // router;
 const routes = require("./routes");
