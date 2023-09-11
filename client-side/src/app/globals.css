@@ -26,8 +26,8 @@
 
 .inputbox:focus {
   outline: 0;
+  @apply border-secondary;
   box-shadow: 0 0 4px #80bdff;
-  border: 1px solid #80bdff;
 }
 
 .inputbox::placeholder {

@@ -1,5 +1,7 @@
 "use client";
 import AdminHeader from "@/components/AdminHeader";
+import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
 import InputWrapper from "@/components/Input";
 import SelectWrapper from "@/components/Select";
 import DynamicTable from "@/components/Table";
@@ -21,7 +23,7 @@ const CategoryManage = () => {
 
   const data = categoryData?.data ?? [];
 
-  console.log(categoryData);
+  // console.log(categoryData);
 
   return (
     <>
@@ -55,6 +57,26 @@ const CategoryManage = () => {
               label="Parent Category"
               labelClassName="text-xs"
             />
+            <div />
+            <div className="text-xs">
+              <label className="" htmlFor="grid-blog-title">
+                Description
+              </label>
+              <textarea
+                className="inputbox"
+                id="short_description"
+                type="text"
+                // value={one.short_description || ''}
+                name="short_description"
+                // onChange={this.handleChange('short_description')}
+              />
+            </div>
+            <div />
+            <Checkbox label="Is Active" name="is_active" />
+            <div />
+            <div className="w-1/2">
+              <Button>Save Category</Button>
+            </div>
           </div>
         </div>
       </div>
