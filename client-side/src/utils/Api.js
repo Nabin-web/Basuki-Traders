@@ -109,3 +109,33 @@ export const fetcher = async ({ url, headers }) => {
     return error;
   }
 };
+
+export async function ApiPost(uri, data) {
+  try {
+    const requestURL = `${BASE_URL}${uri}`;
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    options.body = JSON.stringify(data);
+    const res = await request(requestURL, options);
+    return res;
+  } catch (err) {
+    let error = null;
+    try {
+      const errorPromise = err?.response?.json();
+      error = await errorPromise;
+      if (error?.errors && error?.errors?.name === "JsonWebTokenError") {
+        // network error
+      } else if (error && error?.msg === "Session Expired") {
+        // session expire error
+      } else {
+        return error;
+      }
+    } catch (e) {
+      console.log(e, "e");
+    }
+  }
+}

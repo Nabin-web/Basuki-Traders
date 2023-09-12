@@ -9,6 +9,7 @@ const InputWrapper = ({
   name,
   labelClassName,
   label,
+  error,
 }) => {
   return (
     <div className={divClassName || "text-xs flex flex-col"}>
@@ -22,6 +23,7 @@ const InputWrapper = ({
         placeholder={placeholder}
         name={name}
       />
+      {error && <div className="text-xs text-danger">{error}</div>}
     </div>
   );
 };

@@ -22,12 +22,11 @@
   border: 1px solid #dfdfdf;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
+  @apply outline-secondary;
 }
 
 .inputbox:focus {
-  outline: 0;
-  @apply border-secondary;
-  box-shadow: 0 0 4px #80bdff;
+  @apply outline-secondary outline-2;
 }
 
 .inputbox::placeholder {
