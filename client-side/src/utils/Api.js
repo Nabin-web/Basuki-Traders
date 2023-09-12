@@ -110,16 +110,18 @@ export const fetcher = async ({ url, headers }) => {
   }
 };
 
-export async function ApiPost(uri, data) {
+export async function ApiPost(uri, data, method) {
   try {
     const requestURL = `${BASE_URL}${uri}`;
     let options = {
-      method: "POST",
+      method: method ?? "POST",
       headers: {
         "Content-Type": "application/json",
       },
     };
-    options.body = JSON.stringify(data);
+    if (options.method == "POST") {
+      options.body = JSON.stringify(data);
+    }
     const res = await request(requestURL, options);
     return res;
   } catch (err) {

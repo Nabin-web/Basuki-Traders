@@ -331,4 +331,38 @@ categoryController.getCategoryDropdown = async (req, res, next) => {
   }
 };
 
+categoryController.getSingleCategory = async (req, res, next) => {
+  try {
+    const category_id = req.params.category_id;
+
+    const category = await categorySchema.findOne({
+      _id: category_id,
+      is_deleted: false,
+    });
+
+    if (category) {
+      return otherHelpers.sendResponse(
+        res,
+        httpStatus.OK,
+        true,
+        category,
+        null,
+        "Category detail get success.",
+        null
+      );
+    } else {
+      return otherHelpers.sendResponse(
+        res,
+        httpStatus.BAD_REQUEST,
+        false,
+        null,
+        "Category not found.",
+        null
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = categoryController;

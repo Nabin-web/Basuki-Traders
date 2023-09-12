@@ -4,7 +4,6 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import InputWrapper from "@/components/Input";
 import SelectWrapper from "@/components/Select";
-import DynamicTable from "@/components/Table";
 import { ApiPost, BASE_URL, fetcher, options } from "@/utils/Api";
 import React, { useState } from "react";
 import { RiAddFill } from "react-icons/ri";
@@ -12,6 +11,8 @@ import useSWR from "swr";
 import { getCategoryDropdown, parentCategoryNormalized } from "./helpers";
 import Joi from "joi";
 import { errorBuildLvl1, slugify } from "@/utils/helpers";
+import CategoryList from "./List";
+import { usePathname } from "next/navigation";
 
 const joiModal = Joi.object().keys({
   title: Joi.string().required().label("Title"),
@@ -30,6 +31,8 @@ const CategoryManage = () => {
   );
   const data = categoryData?.data ?? [];
 
+  const pathname = usePathname();
+
   const [one, setOne] = useState({
     title: "",
     url: "",
@@ -38,7 +41,10 @@ const CategoryManage = () => {
     parent_category: null,
   });
   const [errors, setErrors] = useState({});
-  const [saveLoading, setSaveLoading] = useState(false);
+  const [apiLoading, setApiLoading] = useState({
+    saveLoading: false,
+    dltLoading: false,
+  });
 
   const handleChange = (name) => (e) => {
     setOne((prev) => ({ ...prev, [name]: e.target.value }));
@@ -58,6 +64,15 @@ const CategoryManage = () => {
     setOne((prev) => ({ ...prev, parent_category: e.value }));
   };
 
+  const handleFetchSingleCatData = async (id) => {
+    const res = await fetch(`${BASE_URL}category/category/${id}`, {
+      headers: options,
+    }).then((res) => res.json());
+    if (res?.success) {
+      setOne(res.data);
+    }
+  };
+
   const handleSaveCategory = async () => {
     const { error } = joiModal.validate(
       {
@@ -70,51 +85,66 @@ const CategoryManage = () => {
       const errorObj = errorBuildLvl1(error.details);
       setErrors(errorObj);
     } else {
+      setApiLoading((prev) => ({ ...prev, saveLoading: true }));
       const res = await ApiPost("category/category", one);
       if (res?.success) {
-        setOne({
-          title: "",
-          url: "",
-          description: "",
-          is_active: false,
-          parent_category: null,
-        });
+        setApiLoading((prev) => ({ ...prev, saveLoading: false }));
+        handleClearOne();
         categoryListMutate({
           url: `${BASE_URL}category/dropdown`,
           headers: options,
         });
       } else {
         console.log(res, "res");
+        setApiLoading((prev) => ({ ...prev, saveLoading: false }));
       }
     }
   };
 
-  // console.log(categoryData);
+  const handleClearOne = () => {
+    setOne({
+      title: "",
+      url: "",
+      description: "",
+      is_active: false,
+      parent_category: null,
+    });
+  };
+
+  const handleDeleteCategory = async () => {
+    if (one?._id) {
+      setApiLoading((prev) => ({ ...prev, dltLoading: true }));
+      const res = await ApiPost(`category/category/${one._id}`, null, "DELETE");
+      if (res?.success) {
+        handleClearOne();
+        categoryListMutate({
+          url: `${BASE_URL}category/dropdown`,
+          headers: options,
+        });
+        setApiLoading((prev) => ({ ...prev, dltLoading: false }));
+      } else {
+        console.log(res);
+        setApiLoading((prev) => ({ ...prev, dltLoading: false }));
+      }
+    }
+  };
 
   return (
     <>
       <div className="flex justify-between items-center">
         <AdminHeader>Category Manage</AdminHeader>
       </div>
-      <div className="flex mt-4 rounded-md border border-gray-300">
-        <div className="w-56">
-          {data?.length > 0 ? (
-            <div className="bg-gray-700 text-xs p-4 text-white h-full">
-              {data?.map((e, idx) => (
-                <div key={e._id} className="flex items-center gap-2 mb-2">
-                  <button className="">
-                    <RiAddFill className="text-lg" />
-                  </button>
-                  {e.title}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>Categories not added.</div>
-          )}
-        </div>
+      <div className="flex mt-4 rounded-md border border-gray-300 overflow-hidden shadow-md">
+        <CategoryList
+          data={data}
+          handleFetchSingleCatData={handleFetchSingleCatData}
+          loading={loading}
+          handleClearOne={handleClearOne}
+        />
         <div className="flex-1 p-4">
-          <div className="text-sm mb-2">Category Details</div>
+          <div className="text-sm mb-4 border-b border-dashed pb-2">
+            Category Details
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <InputWrapper
               label="Title"
@@ -163,9 +193,19 @@ const CategoryManage = () => {
               checked={one.is_active ?? false}
             />
             <div />
-            <div className="w-1/2">
-              <Button onClick={handleSaveCategory} loading={saveLoading}>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSaveCategory}
+                loading={apiLoading.saveLoading}
+              >
                 Save Category
+              </Button>
+              <Button
+                className="bg-danger text-white text-center py-2 px-3 flex items-center justify-center text-xs rounded"
+                onClick={handleDeleteCategory}
+                loading={apiLoading.dltLoading}
+              >
+                Delete Category
               </Button>
             </div>
           </div>

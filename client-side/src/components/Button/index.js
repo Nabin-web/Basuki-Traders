@@ -13,7 +13,7 @@ const Button = ({
     <button
       className={`${
         className ||
-        "bg-primary text-white text-center p-3 flex items-center justify-center text-xs"
+        "bg-primary text-white text-center py-2 px-3 flex items-center justify-center text-xs rounded"
       } disabled:cursor-not-allowed disabled:bg-gray-600 ${
         fullWidth ? "w-full" : ""
       }`}
