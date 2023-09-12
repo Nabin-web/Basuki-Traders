@@ -14,7 +14,7 @@ export default function AdminLayout({ children }) {
         }}
       >
         <h4 className="text-lg font-bold text-center mt-4 border-b border-white pb-2 mb-5">
-          Admin Links
+          Admin Dashboard
         </h4>
         {adminLinks.map((e) => (
           <Link
