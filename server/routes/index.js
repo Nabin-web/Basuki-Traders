@@ -13,4 +13,7 @@ router.use("/category", categoryRoutes);
 const productRoutes = require("./api/product");
 router.use("/product", productRoutes);
 
+const productTypeRoutes = require("./api/productType");
+router.use("/product-type", productTypeRoutes);
+
 module.exports = router;

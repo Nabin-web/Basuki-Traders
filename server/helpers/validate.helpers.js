@@ -55,6 +55,7 @@ validationHelper.validateRequestBody = (req, res, validationModule, opt) => {
       const errors = validation.error
         ? internal.buildUsefulErrorObject(validation.error.details)
         : null;
+
       return errors;
     } else {
       return null;
