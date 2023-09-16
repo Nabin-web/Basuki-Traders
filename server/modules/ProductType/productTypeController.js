@@ -57,6 +57,7 @@ productTypeController.getProductType = async (req, res, next) => {
         name: { $regex: req.query.find_name, $options: "i" },
       };
     }
+
     const productType = await productTypeSchema.find(searchQuery);
     return otherHelpers.sendResponse(
       res,
