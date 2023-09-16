@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 import useSWR from "swr";
 import { modals } from "@mantine/modals";
 
-const MediaManage = ({ isComponent }) => {
+const MediaManage = ({ isComponent, handleSelectImage }) => {
   const dropRef = useRef(null);
   const [queryVal, setQueryVal] = useState({
     page: 1,
@@ -143,6 +143,7 @@ const MediaManage = ({ isComponent }) => {
               <div
                 key={e._id}
                 className="flex flex-col w-full text-center cursor-pointer overflow-hidden border items-center justify-center border-gray-300 px-4 py-10 opacity-80 hover:opacity-100 relative"
+                onDoubleClick={() => handleSelectImage(e)}
               >
                 <img
                   src={`${IMAGE_URL}${e.path}`}

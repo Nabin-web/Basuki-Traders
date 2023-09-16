@@ -113,7 +113,6 @@ export const fetcher = async ({ url, headers }) => {
 };
 
 export async function ApiPost(uri, data, method) {
-  console.log({ uri });
   try {
     const requestURL = `${BASE_URL}${uri}`;
     let options = {

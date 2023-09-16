@@ -177,7 +177,7 @@ const CategoryManage = () => {
                 Description
               </label>
               <textarea
-                className="inputbox"
+                className="inputbox h-20"
                 id="description"
                 type="text"
                 value={one.description || ""}

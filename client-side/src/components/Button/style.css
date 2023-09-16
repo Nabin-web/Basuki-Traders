@@ -35,3 +35,22 @@
     stroke-dashoffset: -125px;
   }
 }
+
+.backbtn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  margin-right: 20px;
+  justify-content: center;
+  box-shadow: inset 0 0 0 20px #fff;
+  @apply bg-primary;
+}
+.backbtn:hover {
+  box-shadow: inset 0 0 0 0px #fff;
+  @apply text-white;
+}
