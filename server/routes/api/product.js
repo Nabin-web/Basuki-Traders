@@ -8,4 +8,7 @@ router.delete("/:id", productController.deleteProduct);
 router.get("/", productController.getProducts);
 router.get("/:id", productController.getProductDetail);
 
+// public detail get api;
+router.get("/public/:url_key", productController.getPublicDetails);
+
 module.exports = router;

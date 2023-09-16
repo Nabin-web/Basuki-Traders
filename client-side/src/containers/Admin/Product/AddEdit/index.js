@@ -40,7 +40,7 @@ const ProductsAddEdit = ({ product_id }) => {
       ? { url: `${BASE_URL}product/${product_id}`, headers: options }
       : null,
     fetcher,
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false, revalidateOnMount: true }
   );
 
   const { data: categoryData, isLoading: catLoading } = useSWR(
@@ -55,13 +55,11 @@ const ProductsAddEdit = ({ product_id }) => {
     { revalidateOnFocus: false }
   );
 
-  console.log(productTypeData);
-
   useEffect(() => {
     if (!isLoading && data?.success) {
       setOne({ ...data?.data });
     }
-  }, [data?.success]);
+  }, [data]);
 
   const { listProductType, listProductTypeNormalized } = useMemo(() => {
     let listProductType = [];

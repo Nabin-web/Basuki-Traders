@@ -3,7 +3,7 @@ import DynamicTable from "@/components/Table";
 import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
 import { CURRENCY_SIGN, DATE_FORMAT } from "@/utils/constants";
 import { commaNumber, queryHelper } from "@/utils/helpers";
-import { Button } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import moment from "moment";
 import Link from "next/link";
@@ -82,12 +82,12 @@ const ProductListing = () => {
       centered: true,
       children: (
         <Text size="sm">
-          Are you sure to delete this file? You cannot undo this action.
+          Are you sure to delete? You cannot undo this action.
         </Text>
       ),
       labels: { confirm: "Confirm Delete", cancel: "Cancel" },
       confirmProps: { color: "black" },
-      onCancel: () => setDltOpen(false),
+      onCancel: () => {},
       onConfirm: () => handleDelete(id),
     });
 

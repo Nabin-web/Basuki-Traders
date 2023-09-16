@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Loader from "@/assets/loading_transparent.gif";
 import "./table.css";
+import Image from "next/image";
 
 /* eslint-disable react/no-array-index-key */
 function CustomTable({
@@ -174,10 +175,12 @@ function CustomTable({
       </table>
       {loading ? (
         <p className="text-center border-t-0 border text-sm border-gray-300 px-2 py-1">
-          <img
+          <Image
             src={Loader}
             alt="loading"
-            className="inline-block w-8 h-8 mr-3"
+            width={32}
+            height={32}
+            className="inline-block mr-3"
           />
           Loading Data...
         </p>
