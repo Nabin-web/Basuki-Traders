@@ -29,6 +29,7 @@ const ProductType = () => {
     loading: false,
     page: 1,
     size: 10,
+    _id: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -70,6 +71,17 @@ const ProductType = () => {
     setState((prev) => ({ ...prev, page, size }));
   };
 
+  const handleEdit = async (id) => {
+    open();
+    const res = await ApiPost(`product-type/${id}`, null, "GET");
+    setState((prev) => ({
+      ...prev,
+      name: res?.data?.name,
+      is_active: res?.data?.is_active,
+      _id: res?.data?._id,
+    }));
+  };
+
   const handleSaveType = async () => {
     const { error } = joiModal.validate(
       {
@@ -85,6 +97,7 @@ const ProductType = () => {
       const res = await ApiPost("/product-type", {
         name: state.name,
         is_active: state.is_active,
+        _id: state?._id ? state?._id : "",
       });
       if (res?.success) {
         setState({ ...state, loading: false });
@@ -94,6 +107,7 @@ const ProductType = () => {
       } else {
         console.log({ res });
         setErrors(res?.errors);
+        setState({ name: "", is_active: false });
       }
     }
   };
@@ -125,7 +139,7 @@ const ProductType = () => {
           <button
             aria-label="Edit"
             className=" px-1 text-center leading-none"
-            // onClick={() => handleEdit(_id)}
+            onClick={() => handleEdit(_id)}
           >
             <FaEdit />
           </button>
