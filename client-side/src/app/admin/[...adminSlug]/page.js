@@ -1,4 +1,5 @@
 import CategoryManage from "@/containers/Admin/Category";
+import MediaManage from "@/containers/Admin/Media";
 import ProductType from "@/containers/Admin/ProductType";
 
 export default async function AdminSlug({ params: { adminSlug } }) {
@@ -12,6 +13,8 @@ export default async function AdminSlug({ params: { adminSlug } }) {
         <ProductType />
       </>
     );
+  } else if (adminSlug.includes("media-manage")) {
+    return <MediaManage />;
   }
 
   return <div>page</div>;
