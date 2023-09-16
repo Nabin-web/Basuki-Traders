@@ -4,7 +4,7 @@ const productTypeSchema = require("./productTypeSchema");
 const isEmpty = require("../../validation/isEmpty");
 const otherHelpers = require("../../helpers/other.helpers");
 const httpStatus = require("http-status");
-Joi.objectId = require("joi-objectid")(Joi);
+// Joi.objectId = require("joi-objectid")(Joi);
 
 const validator = {};
 
@@ -12,7 +12,7 @@ validator.validateSaveProductType = async (req, res, next) => {
   try {
     const joiModel = Joi.object()
       .keys({
-        name: Joi.string().required().label("Name"),
+        name: Joi.string().required().label("Product Type"),
       })
       .unknown();
     let errors = await validateRequestBody(req, res, joiModel);
