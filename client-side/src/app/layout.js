@@ -1,5 +1,6 @@
-import "./globals.css";
+import RootStyleRegistry from "@/containers/MantineProvider";
 import { Poppins } from "next/font/google";
+import "./globals.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "500" });
 
@@ -11,7 +12,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en ">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <RootStyleRegistry withGlobalStyles withNormalizeCSS>
+          {children}
+        </RootStyleRegistry>
+      </body>
     </html>
   );
 }

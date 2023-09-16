@@ -1,4 +1,5 @@
 import {
+  RiFolderImageLine,
   RiGridFill,
   RiLayout2Fill,
   RiShoppingBasketFill,
@@ -22,6 +23,12 @@ const adminLinks = [
     name: "Product Manage",
     icon: <RiShoppingBasketFill />,
     link: "/admin/products-manage",
+  },
+  {
+    key: "4",
+    name: "Media Manage",
+    icon: <RiFolderImageLine />,
+    link: "/admin/media-manage",
   },
 ];
 
