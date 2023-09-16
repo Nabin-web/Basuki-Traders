@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
 export const SSR_URL = process.env.NEXT_PUBLIC_SSR_BASE;
 export const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE;
@@ -141,4 +143,39 @@ export async function ApiPost(uri, data, method) {
       console.log(e, "e");
     }
   }
+}
+
+export async function multiPartPost(url, data, images) {
+  const formData = new FormData();
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+
+  for (let key in data) {
+    formData.append(key, data[key]);
+  }
+
+  Object.keys(images).map((each) => {
+    if (Array.isArray(images[each])) {
+      images[each].map((fileObj) => formData.append([each], fileObj));
+    } else {
+      formData.append("file", images[each]);
+    }
+    return null;
+  });
+
+  // console.log("this", formData.getAll("file"));
+
+  const res = await axios
+    .post(`${BASE_URL}${url}`, formData, config)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+
+  return res;
 }

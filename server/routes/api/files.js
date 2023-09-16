@@ -4,7 +4,7 @@ const uploaderHelper = require("../../helpers/upload.helper");
 const filesController = require("../../modules/files/fileController");
 
 router.post(
-  "/product/document/upload",
+  "/document/upload",
   uploaderHelper.uploadFiles("public/product", "single", "file", false),
   filesController.UploadFilesWithoutFolder
 );
