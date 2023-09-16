@@ -7,26 +7,29 @@ import {
   options,
 } from "@/utils/Api";
 import { queryHelper } from "@/utils/helpers";
-import { Button } from "@mantine/core";
+import { Button, Modal, Text } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import {
   RiArrowLeftSFill,
   RiArrowRightSFill,
+  RiDeleteBin5Line,
   RiExternalLinkFill,
   RiImageFill,
   RiUploadCloud2Line,
 } from "react-icons/ri";
 import { toast } from "react-toastify";
 import useSWR from "swr";
+import { modals } from "@mantine/modals";
 
-const MediaManage = () => {
+const MediaManage = ({ isComponent }) => {
   const dropRef = useRef(null);
   const [queryVal, setQueryVal] = useState({
     page: 1,
     size: 25,
   });
+  const [dltOpen, setDltOpen] = useState(null);
 
   const { data, mutate, isLoading } = useSWR(
     { url: `${BASE_URL}files`, headers: options },
@@ -42,6 +45,7 @@ const MediaManage = () => {
   const handleUploadFile = async (files) => {
     const res = await multiPartPost("files/document/upload", {}, files);
     if (res?.data?.success) {
+      loadWithQuery(queryVal);
       toast.success(res?.data?.msg || "File upload successfull.");
     } else {
       toast.warning("File upload failure.");
@@ -56,40 +60,85 @@ const MediaManage = () => {
     });
   };
 
+  const handlePagination = (qryObj) => {
+    loadWithQuery(qryObj);
+  };
+
   const loadWithQuery = async (query) => {
     const qry = queryHelper(query);
-    // mutate({ url: `${BASE_URL}files?${qry}`, headers: options });
+    const res = await fetch(`${BASE_URL}files?${qry}`, {
+      headers: options,
+    }).then((res) => res.json());
+    if (res?.success) {
+      mutate(() => res, { revalidate: false });
+    }
   };
+
+  const handleDelete = async (id) => {
+    const res = await fetch(`${BASE_URL}files/delete/${id}`, {
+      method: "DELETE",
+      headers: options,
+    }).then((res) => res.json());
+    if (res?.success) {
+      toast.success(res?.msg || "File delete successfull.");
+      mutate(
+        (prev) => ({
+          ...prev,
+          data: prev.data.filter((e) => e._id !== res?.data?._id),
+        }),
+        { revalidate: false }
+      );
+    } else {
+      toast.warning(res?.msg || "File delete failure.");
+    }
+  };
+
+  const openDeleteModal = (id) =>
+    modals.openConfirmModal({
+      title: "Delete file",
+      centered: true,
+      children: (
+        <Text size="sm">
+          Are you sure to delete this file? You cannot undo this action.
+        </Text>
+      ),
+      labels: { confirm: "Confirm Delete", cancel: "Cancel" },
+      confirmProps: { color: "black" },
+      onCancel: () => setDltOpen(false),
+      onConfirm: () => handleDelete(id),
+    });
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
-        <div>Media Manage</div>
-        <Dropzone
-          openRef={dropRef}
-          activateOnClick={false}
-          styles={{ inner: { pointerEvents: "all" } }}
-          onDrop={(files) => handleUploadFile(files)}
-          style={{
-            border: "none",
-            padding: "0",
-          }}
-          accept={["image/png", "image/jpeg", "image/webp", "image/jpg"]}
-        >
-          <Button
-            className="btn bg-secondary px-4 py-2 rounded-lg text-white"
-            leftIcon={<RiUploadCloud2Line size={20} />}
-            onClick={() => dropRef.current()}
+      {!isComponent && (
+        <div className="flex items-center justify-between mb-4">
+          <div>Media Manage</div>
+          <Dropzone
+            openRef={dropRef}
+            activateOnClick={false}
+            styles={{ inner: { pointerEvents: "all" } }}
+            onDrop={(files) => handleUploadFile(files)}
+            style={{
+              border: "none",
+              padding: "0",
+            }}
+            accept={["image/png", "image/jpeg", "image/webp", "image/jpg"]}
           >
-            Upload File
-          </Button>
-        </Dropzone>
-      </div>
+            <Button
+              className="btn bg-secondary px-4 py-2 rounded-lg text-white"
+              leftIcon={<RiUploadCloud2Line size={20} />}
+              onClick={() => dropRef.current()}
+            >
+              Upload File
+            </Button>
+          </Dropzone>
+        </div>
+      )}
       <div
         className={`${isLoading ? "opacity-25" : ""} bg-white p-4 shadow-md`}
       >
         {filesData.length > 0 ? (
-          <div className="grid grid-cols-4 w-full">
+          <div className="grid grid-cols-5 w-full">
             {filesData.map((e) => (
               <div
                 key={e._id}
@@ -111,6 +160,16 @@ const MediaManage = () => {
                 >
                   <RiExternalLinkFill />
                 </Link>
+                {!isComponent && (
+                  <button
+                    onClick={() => {
+                      openDeleteModal(e._id);
+                    }}
+                    className="border text-danger hover:text-red-600 border-danger p-1 rounded-full absolute bottom-2 right-4"
+                  >
+                    <RiDeleteBin5Line />
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -145,10 +204,10 @@ const MediaManage = () => {
                 if (1 === page) {
                   return;
                 }
-                // handlePagination({
-                //   size,
-                //   page: page - 1,
-                // });
+                handlePagination({
+                  size,
+                  page: page - 1,
+                });
               }}
               className={`${
                 1 === page
@@ -163,10 +222,10 @@ const MediaManage = () => {
                 if (Math.ceil(totalData / size) === page) {
                   return;
                 }
-                // handlePagination({
-                //   size,
-                //   page: page + 1,
-                // });
+                handlePagination({
+                  size,
+                  page: page + 1,
+                });
               }}
               className={`${
                 Math.ceil(totalData / size) === page

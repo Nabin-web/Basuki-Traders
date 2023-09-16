@@ -71,4 +71,34 @@ fileController.getAllFiles = async (req, res, next) => {
   }
 };
 
+fileController.deleteFile = async (req, res, next) => {
+  try {
+    const file_id = req.params.id;
+    if (file_id) {
+      const deleted = await fileSchema.findOneAndUpdate(
+        { _id: file_id, is_deleted: false },
+        {
+          $set: {
+            is_deleted: true,
+            is_active: false,
+            deleted_at: new Date(),
+          },
+        },
+        { new: true }
+      );
+      return otherHelpers.sendResponse(
+        res,
+        httpStatus.OK,
+        true,
+        deleted,
+        null,
+        "File delete successfull.",
+        null
+      );
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = fileController;

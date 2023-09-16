@@ -1,5 +1,6 @@
 "use client";
 import adminLinks from "@/routes/Admin";
+import { ModalsProvider } from "@mantine/modals";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
@@ -44,7 +45,9 @@ export default function AdminLayout({ children }) {
           </Link>
         ))}
       </div>
-      <div className="flex-1 p-4">{children}</div>
+      <div className="flex-1 p-4">
+        <ModalsProvider>{children}</ModalsProvider>
+      </div>
     </div>
   );
 }

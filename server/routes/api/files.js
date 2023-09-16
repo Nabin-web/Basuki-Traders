@@ -10,5 +10,6 @@ router.post(
 );
 
 router.get("/", filesController.getAllFiles);
+router.delete("/delete/:id", filesController.deleteFile);
 
 module.exports = router;
