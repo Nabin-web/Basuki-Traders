@@ -9,4 +9,6 @@ router.post(
   filesController.UploadFilesWithoutFolder
 );
 
+router.get("/", filesController.getAllFiles);
+
 module.exports = router;

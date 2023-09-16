@@ -39,4 +39,36 @@ fileController.UploadFilesWithoutFolder = async (req, res, next) => {
   }
 };
 
+fileController.getAllFiles = async (req, res, next) => {
+  try {
+    let { page, size, searchQuery, sortQuery, populate, selectQuery } =
+      otherHelpers.parseFilters(req, 25, false);
+
+    selectQuery = "path filename originalname";
+    let data = await otherHelpers.getQuerySendResponse(
+      fileSchema,
+      page,
+      size,
+      sortQuery,
+      searchQuery,
+      selectQuery,
+      next,
+      populate
+    );
+    return otherHelpers.paginationSendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      data.data,
+      "Files get successfull",
+      page,
+      size,
+      data.totalData,
+      sortQuery
+    );
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = fileController;

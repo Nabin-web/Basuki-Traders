@@ -17,7 +17,6 @@ export const queryHelper = (queryobj) => {
   let query = "";
   if (queryobj) {
     Object.keys(queryobj).map((each, index) => {
-      console.log(each);
       if (index === 0) {
         query = `${each}=${queryobj[each]}`;
       } else {
