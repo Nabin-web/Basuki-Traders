@@ -85,6 +85,9 @@ const MediaManage = ({ isComponent, handleSelectImage }) => {
         (prev) => ({
           ...prev,
           data: prev.data.filter((e) => e._id !== res?.data?._id),
+          page: prev.page - 1,
+          size: prev.size - 1,
+          totalData: prev.totalData - 1,
         }),
         { revalidate: false }
       );

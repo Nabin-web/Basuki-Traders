@@ -137,7 +137,11 @@ productController.getProducts = async (req, res, next) => {
       otherHelpers.parseFilters(req, 10, false);
     selectQuery =
       "name price sales_price is_active added_at url_key product_sku image";
-    populate = [{ path: "image", select: "path filename" }];
+    populate = [
+      { path: "image", select: "path filename" },
+      { path: "category", select: "title" },
+      { path: "product_type", select: "name" },
+    ];
     let data = await otherHelpers.getQuerySendResponse(
       productSchema,
       page,
