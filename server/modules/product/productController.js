@@ -135,6 +135,38 @@ productController.getProducts = async (req, res, next) => {
   try {
     let { page, size, searchQuery, sortQuery, populate, selectQuery } =
       otherHelpers.parseFilters(req, 10, false);
+
+    if (req.query.find_name) {
+      searchQuery = {
+        ...searchQuery,
+        name: {
+          $regex: req.query.find_name,
+          $options: "i",
+        },
+      };
+    }
+
+    if (req.query.find_is_active) {
+      searchQuery = {
+        ...searchQuery,
+        is_active: req.query.find_is_active,
+      };
+    }
+
+    if (req.query.find_category) {
+      searchQuery = {
+        ...searchQuery,
+        category: req.query.find_category,
+      };
+    }
+
+    if (req.query.find_product_type) {
+      searchQuery = {
+        ...searchQuery,
+        product_type: req.query.find_product_type,
+      };
+    }
+
     selectQuery =
       "name price sales_price is_active added_at url_key product_sku image";
     populate = [
@@ -142,6 +174,7 @@ productController.getProducts = async (req, res, next) => {
       { path: "category", select: "title" },
       { path: "product_type", select: "name" },
     ];
+
     let data = await otherHelpers.getQuerySendResponse(
       productSchema,
       page,

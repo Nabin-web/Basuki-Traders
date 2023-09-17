@@ -10,7 +10,12 @@ const SelectWrapper = (props) => {
         </span>
       )}
       <div className={`${props.selectClassName && props.selectClassName}`}>
-        <Select isSearchable {...props} className="w-full" />
+        <Select
+          styles={{ menu: (base) => ({ ...base, zIndex: 9999 }) }}
+          isSearchable
+          {...props}
+          className="w-full"
+        />
       </div>
       {props.error && <div className="text-danger text-xs">{props.error}</div>}
     </div>

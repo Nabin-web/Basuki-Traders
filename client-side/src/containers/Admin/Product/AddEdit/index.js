@@ -16,6 +16,7 @@ import Checkbox from "@/components/Checkbox";
 import Button from "@/components/Button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { slugify } from "@/utils/helpers";
 
 const ProductsAddEdit = ({ product_id }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const ProductsAddEdit = ({ product_id }) => {
     sales_price: "",
     description: "",
     is_active: false,
+    is_popular: false,
     category: null,
     url_key: "",
     product_sku: "",
@@ -44,13 +46,13 @@ const ProductsAddEdit = ({ product_id }) => {
   );
 
   const { data: categoryData, isLoading: catLoading } = useSWR(
-    { url: `${BASE_URL}category/dropdown`, headers: options },
+    { url: `${BASE_URL}category/admin/dropdown`, headers: options },
     fetcher,
     { revalidateOnFocus: false }
   );
 
   const { data: productTypeData, isLoading: productTypeLoading } = useSWR(
-    { url: `${BASE_URL}product-type`, headers: options },
+    { url: `${BASE_URL}product-type/admin/dropdown`, headers: options },
     fetcher,
     { revalidateOnFocus: false }
   );
@@ -126,7 +128,7 @@ const ProductsAddEdit = ({ product_id }) => {
       setLoading(false);
     } else {
       toast.warning(res?.msg || "Product save failure.");
-      console.log(res);
+      setErrors(res?.errors);
       setLoading(false);
     }
   };
@@ -140,13 +142,14 @@ const ProductsAddEdit = ({ product_id }) => {
         <BackButton onClick={handleBack} />
         <div>{product_id ? "Edit" : "Add"} Product Details</div>
       </div>
-      <div className="p-4 shadow-md">
+      <div className={`p-4 shadow-md ${isLoading ? "opacity-30" : ""}`}>
         <div className="grid grid-cols-2 gap-2 mb-4">
           <InputWrapper
             label="Product Name"
             value={one?.name || ""}
             onChange={handleChange("name")}
             name="name"
+            error={errors?.name || null}
           />
           <InputWrapper
             label="Product Url Key"
@@ -154,6 +157,7 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleChange("url_key")}
             name="url_key"
             disabled
+            error={errors?.url_key || null}
           />
         </div>
         <div className="mb-4">
@@ -162,6 +166,7 @@ const ProductsAddEdit = ({ product_id }) => {
             value={one?.product_sku || ""}
             onChange={handleChange("product_sku")}
             name="product_sku"
+            error={errors?.product_sku || null}
           />
         </div>
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -177,6 +182,9 @@ const ProductsAddEdit = ({ product_id }) => {
               name="description"
               onChange={handleChange("description")}
             />
+            {errors?.description && (
+              <div className="text-xs text-danger">{errors?.description}</div>
+            )}
           </div>
           <div className="text-xs">
             <div>Product Image</div>
@@ -203,6 +211,9 @@ const ProductsAddEdit = ({ product_id }) => {
                 Add Image
               </section>
             )}
+            {errors?.image && (
+              <div className="text-xs text-danger">{errors?.image}</div>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -217,6 +228,7 @@ const ProductsAddEdit = ({ product_id }) => {
                 one.category
               ] || null
             }
+            error={errors?.category || null}
           />
           <SelectWrapper
             options={listProductType || []}
@@ -225,6 +237,7 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleDropdown("product_type")}
             //   error={errors?.parent_category}
             value={listProductTypeNormalized[one.product_type] || null}
+            error={errors?.product_type || null}
           />
         </div>
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -234,6 +247,7 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleChange("price")}
             name="price"
             type="number"
+            error={errors?.price || null}
           />
           <InputWrapper
             label={
@@ -252,6 +266,7 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleChange("sales_price")}
             name="sales_price"
             type="number"
+            error={errors?.sales_price || null}
           />
         </div>
         <div className="flex gap-4 items-center">
@@ -260,6 +275,12 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleChecked}
             name="is_active"
             checked={one?.is_active || false}
+          />
+          <Checkbox
+            label="Is Popular"
+            onChange={handleChecked}
+            name="is_popular"
+            checked={one?.is_popular || false}
           />
           <Button loading={loading} onClick={handleSaveProduct}>
             Save Details

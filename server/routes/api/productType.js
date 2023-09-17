@@ -11,5 +11,6 @@ router.post(
 router.delete("/:id", productTypeController.deleteProductType);
 router.get("/", productTypeController.getProductType);
 router.get("/:id", productTypeController.getProductTypeDetail);
+router.get("/admin/dropdown", productTypeController.getDropdown);
 
 module.exports = router;
