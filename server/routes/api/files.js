@@ -4,9 +4,12 @@ const uploaderHelper = require("../../helpers/upload.helper");
 const filesController = require("../../modules/files/fileController");
 
 router.post(
-  "/product/document/upload",
+  "/document/upload",
   uploaderHelper.uploadFiles("public/product", "single", "file", false),
   filesController.UploadFilesWithoutFolder
 );
+
+router.get("/", filesController.getAllFiles);
+router.delete("/delete/:id", filesController.deleteFile);
 
 module.exports = router;

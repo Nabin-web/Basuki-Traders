@@ -22,6 +22,11 @@ const productSchema = new schema({
   added_at: { type: Date, required: false, default: Date.now() },
   deleted_at: { type: Date, required: false, default: Date.now() },
   category: { type: schema.Types.ObjectId, required: true, ref: "category" },
+  product_type: {
+    type: schema.Types.ObjectId,
+    required: true,
+    ref: "productType",
+  },
   url_key: { type: String, required: true },
   product_sku: { type: String, required: true },
   category_hierarchy: [
@@ -33,7 +38,6 @@ const productSchema = new schema({
     },
   ],
   image: { type: schema.Types.ObjectId, required: true, ref: "file" },
-  is_published: { type: Boolean, default: false, required: false },
 });
 
 module.exports = Product = mongoose.model("product", productSchema);
