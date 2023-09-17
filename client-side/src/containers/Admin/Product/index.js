@@ -1,4 +1,6 @@
 "use client";
+import InputWrapper from "@/components/Input";
+import SelectWrapper from "@/components/Select";
 import DynamicTable from "@/components/Table";
 import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
 import { CURRENCY_SIGN, DATE_FORMAT } from "@/utils/constants";
@@ -8,15 +10,16 @@ import { modals } from "@mantine/modals";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   RiAddFill,
   RiDeleteBin5Line,
-  RiEdit2Fill,
   RiPencilFill,
+  RiSearch2Line,
 } from "react-icons/ri";
 import { toast } from "react-toastify";
 import useSWR from "swr";
+import { getCategoryDropdown } from "../Category/helpers";
 
 const ProductListing = () => {
   const router = useRouter();
@@ -26,10 +29,37 @@ const ProductListing = () => {
     { revalidateOnFocus: false }
   );
 
+  const { data: categoryData, isLoading: catLoading } = useSWR(
+    { url: `${BASE_URL}category/admin/dropdown`, headers: options },
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  const { data: productTypeData, isLoading: productTypeLoading } = useSWR(
+    { url: `${BASE_URL}product-type/admin/dropdown`, headers: options },
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
   const [queryVal, setQueryVal] = useState({
     page: 1,
     size: 10,
+    find_name: "",
+    find_is_active: "",
+    find_category: "",
+    find_product_type: "",
   });
+
+  const { listProductType } = useMemo(() => {
+    let listProductType = [];
+    if (productTypeData?.data?.length > 0) {
+      listProductType = productTypeData?.data?.map((e) => ({
+        label: e.name,
+        value: e._id,
+      }));
+    }
+    return { listProductType };
+  }, [productTypeLoading]);
 
   const handlePagination = ({ page, size }) => {
     setQueryVal({ page, size });
@@ -90,6 +120,24 @@ const ProductListing = () => {
       onCancel: () => {},
       onConfirm: () => handleDelete(id),
     });
+
+  const handleDropdown = (name) => (e) => {
+    setQueryVal((prev) => ({ ...prev, [name]: e.value }));
+  };
+
+  const handleChangeQuery = (name) => (e) => {
+    setQueryVal((prev) => ({ ...prev, [name]: e.target.value }));
+  };
+
+  const handleSearch = () => {
+    loadWithQuery(queryVal);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key == "Enter") {
+      handleSearch();
+    }
+  };
 
   const pagination = {
     page: data?.page || 1,
@@ -185,6 +233,40 @@ const ProductListing = () => {
           Add Product
         </Button>
       </div>
+      <div className="grid grid-cols-5 gap-2 items-end p-4 shadow-md mb-2 z-20">
+        <InputWrapper
+          label="Search by name"
+          value={queryVal?.find_name || ""}
+          onChange={handleChangeQuery("find_name")}
+          name="find_name"
+          onKeyDown={handleKeyDown}
+        />
+        <SelectWrapper
+          options={listActive || []}
+          label="Search by active"
+          labelClassName="text-xs"
+          onChange={handleDropdown("find_is_active")}
+        />
+        <SelectWrapper
+          options={getCategoryDropdown(categoryData?.data || []) || []}
+          label="Search by category"
+          labelClassName="text-xs"
+          onChange={handleDropdown("find_category")}
+        />
+        <SelectWrapper
+          options={listProductType || []}
+          label="Search by product type"
+          labelClassName="text-xs"
+          onChange={handleDropdown("find_product_type")}
+        />
+        <Button
+          className="btn bg-secondary px-4 py-3 rounded-lg text-white"
+          leftIcon={<RiSearch2Line size={20} />}
+          onClick={handleSearch}
+        >
+          Search
+        </Button>
+      </div>
       <DynamicTable
         tableData={tableData}
         emptyDataMsg="Products not found."
@@ -211,3 +293,9 @@ const ProductListing = () => {
 };
 
 export default ProductListing;
+
+const listActive = [
+  { label: "Both", value: "" },
+  { label: "Active", value: true },
+  { label: "In-Active", value: false },
+];

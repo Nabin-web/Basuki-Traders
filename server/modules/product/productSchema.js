@@ -14,6 +14,11 @@ const productSchema = new schema({
     required: false,
     default: false,
   },
+  is_popular: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   is_deleted: {
     type: Boolean,
     required: false,

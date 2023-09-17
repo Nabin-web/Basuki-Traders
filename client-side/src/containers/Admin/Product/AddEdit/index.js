@@ -26,6 +26,7 @@ const ProductsAddEdit = ({ product_id }) => {
     sales_price: "",
     description: "",
     is_active: false,
+    is_popular: false,
     category: null,
     url_key: "",
     product_sku: "",
@@ -141,7 +142,7 @@ const ProductsAddEdit = ({ product_id }) => {
         <BackButton onClick={handleBack} />
         <div>{product_id ? "Edit" : "Add"} Product Details</div>
       </div>
-      <div className="p-4 shadow-md">
+      <div className={`p-4 shadow-md ${isLoading ? "opacity-30" : ""}`}>
         <div className="grid grid-cols-2 gap-2 mb-4">
           <InputWrapper
             label="Product Name"
@@ -274,6 +275,12 @@ const ProductsAddEdit = ({ product_id }) => {
             onChange={handleChecked}
             name="is_active"
             checked={one?.is_active || false}
+          />
+          <Checkbox
+            label="Is Popular"
+            onChange={handleChecked}
+            name="is_popular"
+            checked={one?.is_popular || false}
           />
           <Button loading={loading} onClick={handleSaveProduct}>
             Save Details
