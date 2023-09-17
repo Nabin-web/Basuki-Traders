@@ -286,4 +286,41 @@ productController.getPublicDetails = async (req, res, next) => {
   }
 };
 
+productController.getRelatedProducts = async (req, res, next) => {
+  try {
+    const url_key = req.params.url_key;
+
+    if (url_key) {
+      const product = await productSchema.findOne({
+        url_key: url_key,
+        is_deleted: false,
+        is_active: true,
+      });
+
+      if (product) {
+        let relatedProducts = await productSchema
+          .find({
+            category: product.category,
+            is_deleted: false,
+            is_active: true,
+            url_key: { $ne: url_key },
+          })
+          .select("name price sales_price url_key image")
+          .populate([{ path: "image", select: "filename path" }]);
+        return otherHelpers.sendResponse(
+          res,
+          httpStatus.OK,
+          true,
+          relatedProducts,
+          null,
+          "Related products get success.",
+          null
+        );
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = productController;

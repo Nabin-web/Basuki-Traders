@@ -10,5 +10,6 @@ router.get("/:id", productController.getProductDetail);
 
 // public detail get api;
 router.get("/public/:url_key", productController.getPublicDetails);
+router.get("/public/related/:url_key", productController.getRelatedProducts);
 
 module.exports = router;
