@@ -5,14 +5,12 @@ import Checkbox from "@/components/Checkbox";
 import InputWrapper from "@/components/Input";
 import SelectWrapper from "@/components/Select";
 import { ApiPost, BASE_URL, fetcher, options } from "@/utils/Api";
-import React, { useState } from "react";
-import { RiAddFill } from "react-icons/ri";
-import useSWR from "swr";
-import { getCategoryDropdown, parentCategoryNormalized } from "./helpers";
-import Joi from "joi";
 import { errorBuildLvl1, slugify } from "@/utils/helpers";
+import Joi from "joi";
+import { useState } from "react";
+import useSWR from "swr";
 import CategoryList from "./List";
-import { usePathname } from "next/navigation";
+import { getCategoryDropdown, parentCategoryNormalized } from "./helpers";
 
 const joiModal = Joi.object().keys({
   title: Joi.string().required().label("Title"),
@@ -25,13 +23,11 @@ const CategoryManage = () => {
     isLoading: loading,
     mutate: categoryListMutate,
   } = useSWR(
-    { url: `${BASE_URL}category/dropdown`, headers: options },
+    { url: `${BASE_URL}category/admin/list`, headers: options },
     fetcher,
     { revalidateOnFocus: false }
   );
   const data = categoryData?.data ?? [];
-
-  const pathname = usePathname();
 
   const [one, setOne] = useState({
     title: "",

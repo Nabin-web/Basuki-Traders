@@ -17,8 +17,9 @@ validator.validateSaveProduct = async (req, res, next) => {
         product_sku: Joi.string().required().label("Product sku"),
         price: Joi.number().required().label("Price"),
         sales_price: Joi.number().required().label("Sales price"),
-        description: Joi.number().optional().label("Description"),
+        description: Joi.string().optional().label("Description"),
         category: Joi.objectId().required().label("Category"),
+        product_type: Joi.objectId().required().label("Product Type"),
         image: Joi.objectId().required().label("Image"),
       })
       .unknown();

@@ -39,7 +39,7 @@ const ProductType = () => {
     mutate,
   } = useSWR(
     {
-      url: `${BASE_URL}/product-type?page=${state.page}&size${state.size}`,
+      url: `${BASE_URL}product-type?page=${state.page}&size${state.size}`,
       headers: options,
     },
     fetcher,
@@ -93,12 +93,12 @@ const ProductType = () => {
       const errorObj = errorBuildLvl1(error.details);
       setErrors(errorObj);
     } else {
+      let data = state;
+      if (state._id == "") {
+        delete data._id;
+      }
       setState({ ...state, loading: true });
-      const res = await ApiPost("/product-type", {
-        name: state.name,
-        is_active: state.is_active,
-        _id: state?._id ? state?._id : "",
-      });
+      const res = await ApiPost("product-type", data);
       if (res?.success) {
         setState({ ...state, loading: false });
         mutate({ url: `${BASE_URL}/product-type`, headers: options });

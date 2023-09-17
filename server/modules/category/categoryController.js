@@ -204,7 +204,7 @@ categoryController.getCategory = async (req, res, next) => {
   }
 };
 
-categoryController.getCategoryDropdown = async (req, res, next) => {
+categoryController.getCategoryList = async (req, res, next) => {
   try {
     let categoryParent = await categorySchema
       .find(
@@ -360,6 +360,140 @@ categoryController.getSingleCategory = async (req, res, next) => {
         null
       );
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+categoryController.getCategoryDropdown = async (req, res, next) => {
+  try {
+    let categoryParent = await categorySchema
+      .find(
+        {
+          is_active: true,
+          is_deleted: false,
+          "category_hierarchy.0": { $exists: false },
+        },
+        {
+          title: 1,
+          _id: 1,
+          parent_category: 1,
+          category_hierarchy: 1,
+          default_commission: 1,
+        }
+      )
+      .sort({ title: 1 })
+      .populate([{ path: "category_hierarchy", select: "title" }])
+      .lean();
+    let categoryLevelOne = await categorySchema
+      .find(
+        {
+          is_active: true,
+          is_deleted: false,
+          $and: [
+            { "category_hierarchy.0": { $exists: true } },
+            { "category_hierarchy.1": { $exists: false } },
+          ],
+        },
+        {
+          title: 1,
+          _id: 1,
+          parent_category: 1,
+          category_hierarchy: 1,
+          default_commission: 1,
+        }
+      )
+      .sort({ title: 1 })
+      .populate([{ path: "category_hierarchy", select: "title" }])
+      .lean();
+    let categoryLevelTwo = await categorySchema
+      .find(
+        {
+          is_active: true,
+          is_deleted: false,
+          $and: [
+            { "category_hierarchy.1": { $exists: true } },
+            { "category_hierarchy.2": { $exists: false } },
+          ],
+        },
+        {
+          title: 1,
+          _id: 1,
+          parent_category: 1,
+          category_hierarchy: 1,
+          default_commission: 1,
+        }
+      )
+      .sort({ title: 1 })
+      .populate([{ path: "category_hierarchy", select: "title" }])
+      .lean();
+    let categoryLevelThree = await categorySchema
+      .find(
+        {
+          is_active: true,
+          is_deleted: false,
+          $and: [
+            { "category_hierarchy.2": { $exists: true } },
+            { "category_hierarchy.3": { $exists: false } },
+          ],
+        },
+        {
+          title: 1,
+          _id: 1,
+          parent_category: 1,
+          category_hierarchy: 1,
+          default_commission: 1,
+        }
+      )
+      .sort({ title: 1 })
+      .populate([{ path: "category_hierarchy", select: "title" }])
+      .lean();
+
+    for (let i = 0; i < categoryLevelTwo.length; i++) {
+      categoryLevelTwo[i].child_category = categoryLevelThree.filter((x) => {
+        if (
+          categoryLevelTwo[i]._id.toString() == x.parent_category &&
+          x.parent_category.toString()
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+    for (let i = 0; i < categoryLevelOne.length; i++) {
+      categoryLevelOne[i].child_category = categoryLevelTwo.filter((x) => {
+        if (
+          categoryLevelOne[i]._id.toString() == x.parent_category &&
+          x.parent_category.toString()
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+    for (let i = 0; i < categoryParent.length; i++) {
+      categoryParent[i].child_category = categoryLevelOne.filter((x) => {
+        if (
+          categoryParent[i]._id.toString() == x.parent_category &&
+          x.parent_category.toString()
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+    return otherHelpers.sendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      categoryParent,
+      null,
+      "Category dropdown get success.",
+      null
+    );
   } catch (error) {
     next(error);
   }

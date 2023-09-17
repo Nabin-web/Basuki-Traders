@@ -176,4 +176,24 @@ productTypeController.deleteProductType = async (req, res, next) => {
   }
 };
 
+productTypeController.getDropdown = async (req, res, next) => {
+  try {
+    const productTypes = await productTypeSchema
+      .find({ is_active: true, is_deleted: false })
+      .select("name");
+
+    return otherHelpers.sendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      productTypes,
+      null,
+      "Product type dropdown success.",
+      null
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = productTypeController;
