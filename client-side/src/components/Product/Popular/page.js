@@ -4,14 +4,11 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {
-  BsChevronBarLeft,
-  BsChevronBarRight,
-  BsChevronLeft,
-  BsChevronRight,
-} from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
+import useSWR from "swr";
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -35,6 +32,14 @@ const PrevArrow = ({ onClick }) => {
 
 const PopularProduct = () => {
   const [progress, setProgress] = useState(0);
+  const { data, mutate, isLoading } = useSWR(
+    { url: `${BASE_URL}product`, headers: options },
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  console.log({ data });
+
   const [slidesToShow, setSlideToShow] = useState(4);
   var settings = {
     arrow: true,
@@ -74,19 +79,28 @@ const PopularProduct = () => {
       <h1 className=" text-2xl mb-10">Popular Product</h1>
       <div className=" relative ">
         <Slider {...settings}>
-          {data.map((each, index) => (
-            <div className="w-[100%] shadow-2xl  mb-10" key={index}>
-              <div className="relative h-[250px] w-full  mx-auto">
+          {data?.data?.map((each, index) => (
+            <div
+              className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-12"
+              key={index}
+            >
+              <div className="relative h-[150px] w-2/3  mx-auto">
                 <Image
-                  src="/herosection.jpg"
+                  src={`${IMAGE_URL}${each.image.path}`}
                   className="absolute h-full w-full"
                   fill
                   alt="Product image"
                 />
               </div>
 
-              <h3>Product Name</h3>
-              <p>Price </p>
+              <h3 className=" font-bold my-4">{each.name}</h3>
+              <p className=" font-bold my-4 text-orange-400">
+                Rs. {each.price}{" "}
+              </p>
+
+              <button className=" border border-gray-500 rounded-xl py-2 px-4 flex items-center gap-1 mx-auto group-hover:border-orange-500 ">
+                Show Details <BsChevronRight />
+              </button>
             </div>
           ))}
         </Slider>
