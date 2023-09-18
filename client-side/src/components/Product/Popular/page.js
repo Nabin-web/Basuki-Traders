@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
 import useSWR from "swr";
+import BlurImage from "@/components/BlurImage";
 
 // const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -85,12 +86,14 @@ const PopularProduct = () => {
               key={index}
             >
               <div className="relative h-[150px] w-2/3  mx-auto">
-                <Image
+                {/* <Image
                   src={`${IMAGE_URL}${each.image.path}`}
                   className="absolute h-full w-full"
                   fill
                   alt="Product image"
-                />
+                /> */}
+
+                <BlurImage image={`${IMAGE_URL}${each.image.path}`} />
               </div>
 
               <h3 className=" font-bold my-4">{each.name}</h3>
