@@ -9,18 +9,25 @@ import { Modal } from "@mantine/core";
 import InputWrapper from "@/components/Input";
 import { ApiPost, BASE_URL, fetcher, options } from "@/utils/Api";
 import useSWR from "swr";
-import { errorBuildLvl1 } from "@/utils/helpers";
+import { errorBuildLvl1, queryHelper } from "@/utils/helpers";
 import Checkbox from "@/components/Checkbox";
 import moment from "moment/moment";
 import { Button as mantineBtn, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import "./index.css";
 import { toast } from "react-toastify";
+import SelectWrapper from "@/components/Select";
+import { RiSearch2Line } from "react-icons/ri";
 
 const joiModal = Joi.object().keys({
   name: Joi.string().required().label("Product Type"),
 });
 
+const listActive = [
+  { label: "All", value: "" },
+  { label: "Active", value: "true" },
+  { label: "In Active", value: "false" },
+];
 const ProductType = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [state, setState] = useState({
@@ -32,6 +39,10 @@ const ProductType = () => {
     _id: "",
   });
   const [errors, setErrors] = useState({});
+  const [query, setQuery] = useState({
+    find_name: "",
+    find_is_active: "",
+  });
 
   const {
     data: productTypeData,
@@ -110,6 +121,35 @@ const ProductType = () => {
         setState({ name: "", is_active: false });
       }
     }
+  };
+
+  const handleChangeQuery = (name) => (event) => {
+    console.log("here");
+    setQuery((prev) => ({ ...prev, [name]: event.target.value }));
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      loadWithQuery(query);
+    }
+  };
+
+  const handleDropdown = (name) => (e) => {
+    setQuery((prev) => ({ ...prev, [name]: e.value }));
+  };
+
+  const loadWithQuery = async (query) => {
+    const qry = queryHelper(query);
+    const res = await fetch(`${BASE_URL}product-type?${qry}`, {
+      headers: options,
+    }).then((res) => res.json());
+    if (res?.success) {
+      mutate(() => res, { revalidate: false });
+    }
+  };
+
+  const handleSearch = () => {
+    loadWithQuery(query);
   };
 
   const openDeleteModal = (id) =>
@@ -193,12 +233,35 @@ const ProductType = () => {
         <div>Product Type</div>
         <div className=" ">
           <Button
-            className="btn flex items-center gap-2 bg-secondary px-4 py-2 rounded-lg text-white "
+            className="btn flex items-center gap-2 bg-success px-4 py-2 rounded-lg text-white "
             onClick={open}
           >
             <FaPlus className=" text-sm" /> Add
           </Button>
         </div>
+      </div>
+      <div className="grid grid-cols-5 gap-2 items-end mb-2">
+        <InputWrapper
+          label="Search by name"
+          value={query?.find_name || ""}
+          onChange={handleChangeQuery("find_name")}
+          name="find_name"
+          onKeyDown={handleKeyDown}
+        />
+
+        <SelectWrapper
+          options={listActive || []}
+          label="Search by product type"
+          labelClassName="text-xs"
+          onChange={handleDropdown("find_is_active")}
+        />
+        <Button
+          className="btn bg-secondary px-3 py-2 rounded-lg text-white"
+          leftIcon={<RiSearch2Line size={20} />}
+          onClick={handleSearch}
+        >
+          Search
+        </Button>
       </div>
 
       <DynamicTable

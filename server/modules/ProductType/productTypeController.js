@@ -50,20 +50,38 @@ productTypeController.saveType = async (req, res, next) => {
 
 productTypeController.getProductType = async (req, res, next) => {
   try {
-    let searchQuery = { is_deleted: false };
+    let { page, size, searchQuery, sortQuery, populate, selectQuery } =
+      otherHelpers.parseFilters(req, 10, false);
+
+    searchQuery = { is_deleted: false };
     if (req.query.find_name) {
       searchQuery = {
         ...searchQuery,
         name: { $regex: req.query.find_name, $options: "i" },
       };
     }
+    if (req.query.find_is_active) {
+      searchQuery = {
+        ...searchQuery,
+        is_active: req.query.find_is_active,
+      };
+    }
 
-    const productType = await productTypeSchema.find(searchQuery);
+    const productType = await otherHelpers.getQuerySendResponse(
+      productTypeSchema,
+      page,
+      size,
+      sortQuery,
+      searchQuery,
+      selectQuery,
+      next
+    );
+
     return otherHelpers.sendResponse(
       res,
       httpStatus.OK,
       true,
-      productType,
+      productType.data,
       null,
       "ProudctType get successfull.",
       null
