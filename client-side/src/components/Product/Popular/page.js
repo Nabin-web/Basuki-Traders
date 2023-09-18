@@ -8,6 +8,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
 import useSWR from "swr";
 import BlurImage from "@/components/BlurImage";
+import { useRouter } from "next/navigation";
 
 // const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -32,14 +33,13 @@ const PrevArrow = ({ onClick }) => {
 };
 
 const PopularProduct = () => {
+  const router = useRouter();
   const [progress, setProgress] = useState(0);
   const { data, mutate, isLoading } = useSWR(
     { url: `${BASE_URL}product`, headers: options },
     fetcher,
     { revalidateOnFocus: false }
   );
-
-  console.log({ data });
 
   const [slidesToShow, setSlideToShow] = useState(4);
   var settings = {
@@ -75,6 +75,10 @@ const PopularProduct = () => {
       setProgress((100 / (data.length - slidesToShow + 1)) * (current + 1));
     },
   };
+
+  const handleShowDetails = (urlKey) => {
+    router.push(`/detail/${urlKey}`);
+  };
   return (
     <section className=" px-10 mb-10 ">
       <h1 className=" text-2xl mb-10">Popular Product</h1>
@@ -82,17 +86,17 @@ const PopularProduct = () => {
         <Slider {...settings}>
           {data?.data?.map((each, index) => (
             <div
-              className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-12"
+              className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
               key={index}
+              onClick={() => handleShowDetails(each.url_key)}
             >
-              <div className="relative h-[150px] w-2/3  mx-auto">
+              <div className="relative h-[180px] w-2/3  mx-auto">
                 {/* <Image
                   src={`${IMAGE_URL}${each.image.path}`}
                   className="absolute h-full w-full"
                   fill
                   alt="Product image"
                 /> */}
-
                 <BlurImage image={`${IMAGE_URL}${each.image.path}`} />
               </div>
 
