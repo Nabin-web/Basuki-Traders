@@ -167,6 +167,13 @@ productController.getProducts = async (req, res, next) => {
       };
     }
 
+    if (req.query.find_is_popular) {
+      searchQuery = {
+        ...searchQuery,
+        is_popular: req.query.find_is_popular,
+      };
+    }
+
     selectQuery =
       "name price sales_price is_active added_at url_key product_sku image";
     populate = [
@@ -318,6 +325,48 @@ productController.getRelatedProducts = async (req, res, next) => {
         );
       }
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+productController.getPopularProducts = async (req, res, next) => {
+  try {
+    let { page, size, populate, searchQuery, sortQuery, selectQuery } =
+      otherHelpers.parseFilters(req, 12, false);
+
+    searchQuery = {
+      ...searchQuery,
+      is_popular: true,
+      is_deleted: false,
+      is_active: true,
+    };
+
+    selectQuery =
+      "name price sales_price is_popular added_ad url_key product_sku image";
+    populate = [{ path: "image", select: "filename path" }];
+
+    let data = await otherHelpers.getQuerySendResponse(
+      productSchema,
+      page,
+      size,
+      sortQuery,
+      searchQuery,
+      selectQuery,
+      next,
+      populate
+    );
+    return otherHelpers.paginationSendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      data.data,
+      "Popular products get successfull.",
+      page,
+      size,
+      data.totalData,
+      sortQuery
+    );
   } catch (error) {
     next(error);
   }

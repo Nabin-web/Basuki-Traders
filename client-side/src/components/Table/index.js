@@ -1,5 +1,8 @@
-import dynamic from "next/dynamic";
+import React from "react";
+import CustomTable from "./Table";
 
-const DynamicTable = dynamic(() => import("./Table"), { ssr: false });
+const DynamicTable = (props) => {
+  return <CustomTable {...props} />;
+};
 
 export default DynamicTable;

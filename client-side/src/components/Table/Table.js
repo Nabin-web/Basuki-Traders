@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Loader from "@/assets/loading_transparent.gif";
 import "./table.css";
@@ -28,6 +28,8 @@ function CustomTable({
   tableTotalData,
   nonSticky,
 }) {
+  const [totalHeight, setTotalHeight] = useState("");
+
   const handleSize = (value) => {
     handlePagination({
       ...pagination,
@@ -38,9 +40,10 @@ function CustomTable({
 
   //total height of sections other than table itself
   //possible sections - top header section & filter section
-  const headerSection = document.getElementById("page-header");
-  const filterSection = document.getElementById("page-filter");
-  const totalHeight = useMemo(() => {
+
+  useEffect(() => {
+    const filterSection = document.getElementById("page-filter");
+    const headerSection = document.getElementById("page-header");
     let totalHeight = 0;
     if (headerSection) {
       totalHeight += headerSection.offsetHeight;
@@ -48,8 +51,8 @@ function CustomTable({
     if (filterSection) {
       totalHeight += filterSection.offsetHeight;
     }
-    return `${totalHeight + 120}px`;
-  }, [headerSection, filterSection]);
+    setTotalHeight(`${totalHeight + 120}px`);
+  }, []);
 
   return (
     <div

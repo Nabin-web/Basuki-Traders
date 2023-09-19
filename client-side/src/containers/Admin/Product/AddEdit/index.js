@@ -107,8 +107,8 @@ const ProductsAddEdit = ({ product_id }) => {
     setOne((prev) => ({ ...prev, image: null }));
   };
 
-  const handleChecked = (e) => {
-    setOne((prev) => ({ ...prev, is_active: e.target.checked }));
+  const handleChecked = (name) => (e) => {
+    setOne((prev) => ({ ...prev, [name]: e.target.checked }));
   };
 
   const handleBack = () => {
@@ -272,13 +272,13 @@ const ProductsAddEdit = ({ product_id }) => {
         <div className="flex gap-4 items-center">
           <Checkbox
             label="Is Active"
-            onChange={handleChecked}
+            onChange={handleChecked("is_active")}
             name="is_active"
             checked={one?.is_active || false}
           />
           <Checkbox
             label="Is Popular"
-            onChange={handleChecked}
+            onChange={handleChecked("is_popular")}
             name="is_popular"
             checked={one?.is_popular || false}
           />

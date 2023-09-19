@@ -233,7 +233,7 @@ const ProductListing = () => {
           Add Product
         </Button>
       </div>
-      <div className="grid grid-cols-5 gap-2 items-end p-4 shadow-md mb-2 z-20">
+      <div className="grid grid-cols-6 gap-2 items-end p-4 shadow-md mb-2 z-20">
         <InputWrapper
           label="Search by name"
           value={queryVal?.find_name || ""}
@@ -246,6 +246,12 @@ const ProductListing = () => {
           label="Search by active"
           labelClassName="text-xs"
           onChange={handleDropdown("find_is_active")}
+        />
+        <SelectWrapper
+          options={listPopular || []}
+          label="Search by popular"
+          labelClassName="text-xs"
+          onChange={handleDropdown("find_is_popular")}
         />
         <SelectWrapper
           options={getCategoryDropdown(categoryData?.data || []) || []}
@@ -298,4 +304,10 @@ const listActive = [
   { label: "Both", value: "" },
   { label: "Active", value: true },
   { label: "In-Active", value: false },
+];
+
+const listPopular = [
+  { label: "Both", value: "" },
+  { label: "Is-Popular", value: true },
+  { label: "Not-Popular", value: false },
 ];
