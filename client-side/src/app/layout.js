@@ -1,6 +1,7 @@
 import RootStyleRegistry from "@/containers/MantineProvider";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar/pages";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "500" });
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en ">
       <body className={poppins.className}>
+        <Navbar />
         <RootStyleRegistry withGlobalStyles withNormalizeCSS>
           {children}
         </RootStyleRegistry>

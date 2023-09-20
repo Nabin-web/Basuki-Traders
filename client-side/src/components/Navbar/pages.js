@@ -1,9 +1,15 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathname = usePathname();
+  if (pathname.includes("/admin")) {
+    return null;
+  }
   return (
-    <header className="flex items-center justify-center text-white bg-slate-800">
+    <header className="flex items-center justify-center text-white bg-orange-300">
       <div className="mx-auto relative px-5 max-w-screen-xl w-full flex items-center">
         <Image
           src="/logo.png"
