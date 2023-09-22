@@ -15,5 +15,6 @@ router.get(
   "/public/list/popular/products",
   productController.getPopularProducts
 );
+router.get("/public/search/products", productController.searchProducts);
 
 module.exports = router;

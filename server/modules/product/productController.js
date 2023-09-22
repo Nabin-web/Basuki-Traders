@@ -372,4 +372,50 @@ productController.getPopularProducts = async (req, res, next) => {
   }
 };
 
+productController.searchProducts = async (req, res, next) => {
+  try {
+    let { page, size, searchQuery, sortQuery, populate, selectQuery } =
+      otherHelpers.parseFilters(req, 10, false);
+
+    if (req.query.searchKey) {
+      searchQuery = {
+        ...searchQuery,
+        name: {
+          $regex: req.query.searchKey,
+          $options: "i",
+        },
+      };
+    }
+
+    selectQuery =
+      "name price sales_price is_popular added_ad url_key product_sku image";
+    populate = [{ path: "image", select: "filename path" }];
+
+    let data = await otherHelpers.getQuerySendResponse(
+      productSchema,
+      page,
+      size,
+      sortQuery,
+      searchQuery,
+      selectQuery,
+      next,
+      populate
+    );
+
+    return otherHelpers.paginationSendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      data.data,
+      "Products get successfull.",
+      page,
+      size,
+      data.totalData,
+      sortQuery
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = productController;
