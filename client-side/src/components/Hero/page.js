@@ -6,7 +6,7 @@ const HeroSection = () => {
     <section className="my-20 mb-28 flex flex-col lg:flex-row items-center gap-20 mx-auto">
       <Image
         src="/herosection.png"
-        className="ml-16"
+        className="md:ml-16"
         priority
         height={450}
         width={380}
@@ -19,11 +19,11 @@ const HeroSection = () => {
           height={100}
           width={100}
         />
-        <h1 className="text-5xl font-bold mb-0 lg:mb-3">
+        <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-3">
           All your{" "}
           <span className="text-orange-500 capitalize">grocery needs</span>{" "}
         </h1>
-        <h1 className="text-5xl font-bold mb-0 lg:mb-4 text-center flex items-center justify-center lg:block">
+        <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-4 text-center flex items-center justify-center lg:block">
           under one roof.
           <Image
             src="/tomato-hero.png"
@@ -32,7 +32,7 @@ const HeroSection = () => {
             width={100}
           />
         </h1>
-        <p className="text-gray-500">
+        <p className="text-gray-500 px-4 md:px-0">
           We believe in making your shopping experience as convenient as
           possible.
         </p>

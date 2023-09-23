@@ -8,13 +8,13 @@ import { BsChevronRight } from "react-icons/bs";
 import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import { FaPlus } from "react-icons/fa";
 import { queryHelper } from "@/utils/helpers";
+import Link from "next/link";
 
 const Products = () => {
   const [qeury, setQuey] = useState({
     page: 1,
     size: 2,
   });
-  const router = useRouter();
   const [mainData, setMainData] = useState([]);
   const { data, mutate, isLoading } = useSWR(
     {
@@ -33,10 +33,6 @@ const Products = () => {
 
     return () => setMainData([]);
   }, [data]);
-
-  const handleShowDetails = (urlKey) => {
-    router.push(`/detail/${urlKey}`);
-  };
 
   const handleViewMore = async () => {
     const qry = queryHelper({ page: qeury?.page + 1, size: 2 });
@@ -57,26 +53,27 @@ const Products = () => {
   };
 
   return (
-    <section className=" px-10 mb-10 ">
-      <h1 className=" text-2xl mb-10">Popular Product</h1>
-      <div className=" relative grid grid-cols-1  sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-5 items-center flex-wrap gap-4">
+    <section className="px-10 mb-10 ">
+      <h1 className="text-2xl mb-10">Popular Product</h1>
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center flex-wrap gap-8">
         {mainData?.map((each, index) => (
-          <div
+          <Link
+            prefetch={false}
+            href={each.url_key}
             className=" group transition duration-300 border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
-            key={index}
-            onClick={() => handleShowDetails(each.url_key)}
+            key={`products-${each._id}-${index}`}
           >
-            <div className="relative h-[120px] w-2/3  mx-auto">
+            <div className="relative h-[180px] w-2/3  mx-auto">
               <BlurImage image={`${IMAGE_URL}${each.image.path}`} />
             </div>
-
-            <h3 className=" font-bold my-4">{each.name}</h3>
+            <h3 className="font-bold my-4 text-center w-56 mx-auto truncate">
+              {each.name}
+            </h3>
             <p className=" font-bold my-4 text-orange-400">Rs. {each.price} </p>
-            {/* 
-            <button className=" border border-gray-500 rounded-xl py-2 px-4 flex items-center gap-1 mx-auto group-hover:border-orange-500 ">
+            <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
               Show Details <BsChevronRight />
-            </button> */}
-          </div>
+            </button>
+          </Link>
         ))}
       </div>
       <div onClick={() => handleViewMore()} className=" text-center">

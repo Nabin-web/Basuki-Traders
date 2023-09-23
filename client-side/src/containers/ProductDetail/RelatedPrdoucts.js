@@ -1,72 +1,61 @@
 "use client";
 import CardOne from "@/components/CardOne";
-import React from "react";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
-function SampleNextArrow(props) {
-  const { onClick } = props;
+const NextArrow = ({ onClick }) => {
   return (
-    <div
-      className="absolute top-1/2 -right-14 z-10 -mt-6 flex cursor-pointer items-center justify-center bg-white shadow-md rounded-full p-4"
+    <button
+      title="Previous"
+      className="absolute -right-0 top-1/2 z-10 -translate-y-1/2"
       onClick={onClick}
-      aria-hidden={false}
     >
-      <BsChevronRight className="text-2xl" />
-    </div>
+      <RiArrowRightLine className="text-white bg-orange-500 p-2 font-bold text-5xl rounded-full shadow-md opacity-60 hover:opacity-100 duration-200" />
+    </button>
   );
-}
+};
 
-function SamplePrevArrow(props) {
-  const { onClick } = props;
+const PrevArrow = ({ onClick }) => {
   return (
-    <div
-      className="absolute top-1/2 -left-12 z-10 -mt-6 flex cursor-pointer items-center justify-center bg-white shadow-md rounded-full p-4"
+    <button
+      title="Next"
+      className="absolute top-1/2 z-10 -translate-y-1/2 -left-5"
       onClick={onClick}
-      aria-hidden={false}
     >
-      <BsChevronLeft className="text-2xl" />
-    </div>
+      <RiArrowLeftLine className="text-white bg-orange-500 p-2 font-bold text-5xl rounded-full shadow-md opacity-60 hover:opacity-100 duration-200" />
+    </button>
   );
-}
+};
 
 const RelatedPrdoucts = ({ data }) => {
   const settings = {
-    dots: false,
+    arrow: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1100,
+        breakpoint: 1280,
         settings: {
-          arrows: false,
-          dots: false,
-          slidesToShow: 5,
-          slidesToScroll: 1,
+          slidesToShow: 3,
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 1000,
         settings: {
-          arrows: false,
-          dots: false,
           slidesToShow: 2,
-          slidesToScroll: 1,
         },
       },
+
       {
-        breakpoint: 480,
+        breakpoint: 650,
         settings: {
-          arrows: false,
-          dots: false,
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow: 1,
         },
       },
     ],
@@ -82,7 +71,7 @@ const RelatedPrdoucts = ({ data }) => {
         </div>
         <Slider {...settings} className="ProductSliderSec sliderFix">
           {data.map((e, idx) => (
-            <div className="px-2" key={`${idx}-related-products`}>
+            <div className="px-2 ml-4 md:ml-0" key={`${idx}-related-products`}>
               <CardOne product={e} productIndex={idx} />
             </div>
           ))}

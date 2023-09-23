@@ -4,9 +4,9 @@ import { CURRENCY_SIGN } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BsChevronRight } from "react-icons/bs";
 
 const CardOne = ({ product }) => {
-  console.log(product, "product");
   return (
     <div className="p-4 border border-gray-300">
       <Link
@@ -21,9 +21,9 @@ const CardOne = ({ product }) => {
           height={300}
           className="object-contain w-full h-auto"
         />
-        <div className="my-2 text-sm text-center truncate mt-4 w-[176px]">
-          {product?.name}
-        </div>
+        <h3 className=" font-bold my-4 text-center w-56 mx-auto truncate">
+          {product.name}
+        </h3>
         {product?.price - product?.sales_price > 0 ? (
           <div className="text-center">
             <span>
@@ -38,6 +38,9 @@ const CardOne = ({ product }) => {
             {CURRENCY_SIGN} {product?.price}{" "}
           </div>
         )}
+        <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
+          Show Details <BsChevronRight />
+        </button>
       </Link>
     </div>
   );

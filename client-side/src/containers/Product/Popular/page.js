@@ -75,7 +75,7 @@ const PopularProduct = ({ popularData }) => {
             <Link
               prefetch={false}
               href={`/detail/${each.url_key}`}
-              className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
+              className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer ml-2 md:ml-0"
               key={`popular-${each._id}-${index}`}
             >
               <div className="relative h-[180px] w-2/3  mx-auto">

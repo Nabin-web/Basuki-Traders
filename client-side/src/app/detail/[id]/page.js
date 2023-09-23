@@ -26,7 +26,7 @@ const ProducDetail = async ({ params: { id } }) => {
 
   return (
     <div className="container mx-auto py-20">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Image
           src={`${IMAGE_URL}${data?.image?.path}`}
           alt={data?.image?.filename}
@@ -34,8 +34,8 @@ const ProducDetail = async ({ params: { id } }) => {
           height={500}
           className="h-full w-auto object-contain"
         />
-        <div>
-          <h2 className="text-4xl font-bold mb-7">{data?.name}</h2>
+        <div className="px-4 md:px-0">
+          <h2 className="text-3xl md:text-4xl font-bold mb-7">{data?.name}</h2>
           <div className="grid grid-cols-2 w-full mb-4">
             <div className="text-base font-semibold text-gray-600">Price :</div>
             {data?.price - data?.sales_price > 0 ? (
