@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en ">
-      <body className={poppins.className}>
+      <body className={`${poppins.className} relative`}>
         <Navbar />
         <RootStyleRegistry withGlobalStyles withNormalizeCSS>
           {children}
