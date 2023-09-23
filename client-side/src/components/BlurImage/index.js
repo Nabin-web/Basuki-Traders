@@ -10,7 +10,6 @@ export default function BlurImage({ image }) {
       <Image
         alt="Product Image"
         src={image}
-        layout="fill"
         className={`
               duration-700 ease-in-out group-hover:opacity-75 object-contain
               ${
@@ -19,6 +18,8 @@ export default function BlurImage({ image }) {
                   : "scale-100 blur-0 grayscale-0"
               })`}
         onLoadingComplete={() => setLoading(false)}
+        fill
+        sizes="200px"
       />
     </div>
     // </Link>
