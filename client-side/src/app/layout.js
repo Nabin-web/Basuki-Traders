@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.className} relative`}>
         <Navbar />
         <RootStyleRegistry withGlobalStyles withNormalizeCSS>
-          <div className="container mx-auto">{children}</div>
+          {children}
         </RootStyleRegistry>
       </body>
     </html>
