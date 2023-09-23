@@ -57,7 +57,7 @@ const Products = () => {
   return (
     <section className=" px-10 mb-10 ">
       <h1 className=" text-2xl mb-10">Popular Product</h1>
-      <div className=" relative grid grid-cols-5 items-center flex-wrap gap-4">
+      <div className=" relative grid grid-cols-1  sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 items-center flex-wrap gap-4">
         {mainData?.map((each, index) => (
           <div
             className=" group transition duration-300 border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
