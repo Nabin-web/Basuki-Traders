@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Mobile from "./components/Mobile";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -24,19 +25,21 @@ const Navbar = () => {
   }
   return (
     <header
-      className={`sticky top-0 bg-white z-20 ${
-        offset > 40 ? "shadow-md" : ""
-      } duration-200`}
+      className={`sticky top-0 z-20 ${
+        offset > 40 ? "shadow-md backdrop-blur-sm" : ""
+      } bg-white/60`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Image
-          src="/logo.png"
-          width={200}
-          height={200}
-          alt="Picture of the logo"
-          priority
-        />
-        <div className="flex gap-8 items-center">
+        <Link prefetch={false} href="/">
+          <Image
+            src="/logo.png"
+            width={200}
+            height={200}
+            alt="Picture of the logo"
+            priority
+          />
+        </Link>
+        <div className="hidden lg:flex gap-8 items-center">
           {links.map((e) => (
             <Link
               prefetch={false}
@@ -49,6 +52,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+        <Mobile />
       </div>
     </header>
   );
@@ -56,7 +60,7 @@ const Navbar = () => {
 
 export default Navbar;
 
-const links = [
+export const links = [
   { label: "Home", path: "/" },
   { label: "Products", path: "/products" },
   { label: "Search", path: "/search" },
