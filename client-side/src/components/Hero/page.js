@@ -25,7 +25,7 @@ const HeroSection = () => {
           All your{" "}
           <span className="text-orange-500 capitalize">grocery needs</span>{" "}
         </h1>
-        <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-4 text-center flex items-center justify-center lg:block">
+        <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-4 text-center md:text-left flex items-center justify-center lg:block">
           under one roof.
           <Image
             src="/tomato-hero.png"
