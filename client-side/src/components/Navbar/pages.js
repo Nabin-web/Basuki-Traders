@@ -1,69 +1,66 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const [offset, setOffset] = useState(0);
+
+  const setScroll = () => {
+    setOffset(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", setScroll);
+    return () => {
+      window.removeEventListener("scroll", setScroll);
+    };
+  }, []);
+
   if (pathname.includes("/admin")) {
     return null;
   }
   return (
-    <header className="flex items-center justify-center text-white bg-orange-300">
-      <div className="mx-auto relative px-5 max-w-screen-xl w-full flex items-center">
+    <header
+      className={`sticky top-0 bg-white z-20 ${
+        offset > 40 ? "shadow-md" : ""
+      } duration-200`}
+    >
+      <div className="container mx-auto flex items-center justify-between">
         <Image
           src="/logo.png"
-          width={120}
-          height={120}
+          width={200}
+          height={200}
           alt="Picture of the logo"
+          priority
         />
-        <ul className="flex  items-center gap-4 ">
-          <li>
-            <a
-              href="#"
-              className=" hover:border-b-white border-transparent border-2 pb-4 "
+        <div className="flex gap-8 items-center">
+          {links.map((e) => (
+            <Link
+              prefetch={false}
+              href={e.path}
+              className={`${
+                pathname == e.path ? "text-orange-500" : ""
+              } duration-300 text-base`}
             >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className=" hover:border-b-white border-transparent border-2 pb-4"
-            >
-              Products
-            </a>
-          </li>
-          <li>
-            <a
-              className=" hover:border-b-white border-transparent border-2 pb-4"
-              href="#"
-            >
-              About Us
-            </a>
-          </li>
-
-          <li>
-            <a
-              className=" hover:border-b-white border-transparent border-2 pb-4"
-              href="#"
-            >
-              Our Network
-            </a>
-          </li>
-
-          <li>
-            <a
-              className=" hover:border-b-white border-transparent border-2 pb-4"
-              href="#"
-            >
-              Contact Us
-            </a>
-          </li>
-        </ul>
+              {e.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </header>
   );
 };
 
 export default Navbar;
+
+const links = [
+  { label: "Home", path: "/" },
+  { label: "Products", path: "/products" },
+  { label: "Search", path: "/search" },
+  { label: "About Us", path: "/about-us" },
+  { label: "Our Network", path: "/out-network" },
+  { label: "Contact Us", path: "/contact-us" },
+];
