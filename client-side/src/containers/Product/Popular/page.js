@@ -1,14 +1,12 @@
 "use client";
 import BlurImage from "@/components/BlurImage";
-import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { IMAGE_URL } from "@/utils/Api";
+import Link from "next/link";
 import { BsChevronRight } from "react-icons/bs";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import useSWR from "swr";
 
 // const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -36,27 +34,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const PopularProduct = () => {
-  const router = useRouter();
-  const [progress, setProgress] = useState(0);
-  const {
-    data: popularData,
-    mutate,
-    isLoading,
-  } = useSWR(
-    {
-      url: `${BASE_URL}product/public/list/popular/products`,
-      headers: options,
-    },
-    fetcher,
-    { revalidateOnFocus: false }
-  );
-
-  const data = popularData?.data || [];
-
-  console.log(data);
-
-  const [slidesToShow, setSlideToShow] = useState(4);
+const PopularProduct = ({ popularData }) => {
   var settings = {
     arrow: true,
     infinite: false,
@@ -86,24 +64,19 @@ const PopularProduct = () => {
         },
       },
     ],
-    afterChange: (current) => {
-      setProgress((100 / (data.length - slidesToShow + 1)) * (current + 1));
-    },
   };
 
-  const handleShowDetails = (urlKey) => {
-    router.push(`/detail/${urlKey}`);
-  };
   return (
     <section className=" px-10 mb-10 ">
       <h1 className=" text-2xl mb-10">Popular Product</h1>
       <div className=" relative ">
         <Slider {...settings}>
-          {data?.map((each, index) => (
-            <div
+          {popularData?.map((each, index) => (
+            <Link
+              prefetch={false}
+              href={`/detail/${each.url_key}`}
               className="group transition duration-300 w-[100%] border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
-              key={index}
-              onClick={() => handleShowDetails(each.url_key)}
+              key={`popular-${each._id}-${index}`}
             >
               <div className="relative h-[180px] w-2/3  mx-auto">
                 <BlurImage image={`${IMAGE_URL}${each.image.path}`} />
@@ -119,15 +92,9 @@ const PopularProduct = () => {
               <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
                 Show Details <BsChevronRight />
               </button>
-            </div>
+            </Link>
           ))}
         </Slider>
-        <div className="h-[2px] bg-gray-300 w-[250px] absolute -top-[15px] right-0">
-          <div
-            className=" bg-[#fab1a0] absolute h-[100%] transition-all"
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
       </div>
     </section>
   );
