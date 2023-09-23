@@ -32,7 +32,7 @@ const ProducDetail = async ({ params: { id } }) => {
           alt={data?.image?.filename}
           width={500}
           height={500}
-          className="h-full w-auto object-contain"
+          className="h-full w-auto object-contain mx-auto mb-8 md:mx-0 md:mb-0"
         />
         <div className="px-4 md:px-0">
           <h2 className="text-3xl md:text-4xl font-bold mb-7">{data?.name}</h2>
@@ -40,7 +40,7 @@ const ProducDetail = async ({ params: { id } }) => {
             <div className="text-base font-semibold text-gray-600">Price :</div>
             {data?.price - data?.sales_price > 0 ? (
               <div>
-                <span className="text-lg font-semibold">
+                <span className="text-lg font-semibold text-orange-500">
                   {CURRENCY_SIGN} {data?.sales_price}
                 </span>
                 <span className="text-gray-400 text-sm ml-2 line-through">
@@ -48,7 +48,7 @@ const ProducDetail = async ({ params: { id } }) => {
                 </span>
               </div>
             ) : (
-              <div className="text-lg font-semibold">
+              <div className="text-lg font-semibold text-orange-500">
                 {CURRENCY_SIGN} {data?.price}
               </div>
             )}

@@ -11,6 +11,7 @@ const HeroSection = () => {
         height={450}
         width={380}
         quality={85}
+        alt="Basuki Traders"
       />
       <div className="relative text-center lg:text-left">
         <Image
@@ -18,6 +19,7 @@ const HeroSection = () => {
           className="-ml-4 hidden lg:block"
           height={100}
           width={100}
+          alt="Tomato Grocery"
         />
         <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-3">
           All your{" "}
@@ -30,6 +32,7 @@ const HeroSection = () => {
             className="-ml-2 block lg:hidden"
             height={100}
             width={100}
+            alt="Tomato Grocery"
           />
         </h1>
         <p className="text-gray-500 px-4 md:px-0">

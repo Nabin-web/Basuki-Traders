@@ -1,26 +1,21 @@
 "use client";
 import { IMAGE_URL } from "@/utils/Api";
 import { CURRENCY_SIGN } from "@/utils/constants";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { BsChevronRight } from "react-icons/bs";
+import BlurImage from "../BlurImage";
 
-const CardOne = ({ product }) => {
+const CardOne = ({ product, target }) => {
   return (
-    <div className="p-4 border border-gray-300">
+    <div className="group duration-200 w-full border rounded-lg border-gray-300 hover:border-orange-500 text-center mb-10 py-8 cursor-pointer ml-2 md:ml-0">
       <Link
         prefetch={false}
         href={`/detail/${product.url_key}`}
-        target="_blank"
+        target={target || "_self"}
       >
-        <Image
-          src={`${IMAGE_URL}${product.image?.path}`}
-          alt={product?.image?.filename}
-          width={200}
-          height={300}
-          className="object-contain w-full h-auto"
-        />
+        <div className="relative h-[180px] w-2/3 mx-auto">
+          <BlurImage image={`${IMAGE_URL}${product.image.path}`} />
+        </div>
         <h3 className=" font-bold my-4 text-center w-56 mx-auto truncate">
           {product.name}
         </h3>

@@ -25,7 +25,7 @@ const Navbar = () => {
   }
   return (
     <header
-      className={`sticky top-0 z-20 ${
+      className={`sticky px-4 md:px-0 top-0 z-20 ${
         offset > 40 ? "shadow-md backdrop-blur-sm" : ""
       } bg-white/60`}
     >
@@ -47,6 +47,7 @@ const Navbar = () => {
               className={`${
                 pathname == e.path ? "text-orange-500" : ""
               } duration-300 text-base`}
+              key={e.label}
             >
               {e.label}
             </Link>

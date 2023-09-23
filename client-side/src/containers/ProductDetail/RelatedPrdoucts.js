@@ -63,15 +63,15 @@ const RelatedPrdoucts = ({ data }) => {
 
   if (data?.length > 0) {
     return (
-      <div className="mt-10 mb-6">
-        <div className="flex items-center justify-center py-2 font-bold mt-8 mb-6">
-          <div className="text-3xl font-bold tracking-wider uppercase leading-[24.38px]">
+      <div className="mt-20 mb-6">
+        <div className="flex items-center justify-center py-2 font-bold mt-8 mb-4">
+          <div className="text-2xl font-bold tracking-wider uppercase leading-[24.38px]">
             Related Products
           </div>
         </div>
         <Slider {...settings} className="ProductSliderSec sliderFix">
           {data.map((e, idx) => (
-            <div className="px-2 ml-4 md:ml-0" key={`${idx}-related-products`}>
+            <div className="px-2 ml-4 sm:ml-0" key={`${idx}-related-products`}>
               <CardOne product={e} productIndex={idx} />
             </div>
           ))}

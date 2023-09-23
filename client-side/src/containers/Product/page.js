@@ -9,6 +9,7 @@ import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import { FaPlus } from "react-icons/fa";
 import { queryHelper } from "@/utils/helpers";
 import Link from "next/link";
+import CardOne from "@/components/CardOne";
 
 const Products = () => {
   const [qeury, setQuey] = useState({
@@ -57,23 +58,9 @@ const Products = () => {
       <h1 className="text-2xl mb-10">Popular Product</h1>
       <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center flex-wrap gap-8">
         {mainData?.map((each, index) => (
-          <Link
-            prefetch={false}
-            href={each.url_key}
-            className=" group transition duration-300 border rounded-lg border-gray-300 hover:text-orange-500  hover:border-orange-500 text-center mb-10 py-8 hover:cursor-pointer"
-            key={`products-${each._id}-${index}`}
-          >
-            <div className="relative h-[180px] w-2/3  mx-auto">
-              <BlurImage image={`${IMAGE_URL}${each.image.path}`} />
-            </div>
-            <h3 className="font-bold my-4 text-center w-56 mx-auto truncate">
-              {each.name}
-            </h3>
-            <p className=" font-bold my-4 text-orange-400">Rs. {each.price} </p>
-            <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
-              Show Details <BsChevronRight />
-            </button>
-          </Link>
+          <div key={`products-${index}-${each._id}`}>
+            <CardOne product={each} />
+          </div>
         ))}
       </div>
       <div onClick={() => handleViewMore()} className=" text-center">
