@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <header
       className={`sticky px-4 md:px-0 top-0 z-20 ${
-        offset > 40 ? "shadow-md backdrop-blur-sm" : ""
+        offset > 20 ? "shadow-md backdrop-blur-sm" : ""
       } bg-white/60`}
     >
       <div className="container mx-auto flex items-center justify-between">

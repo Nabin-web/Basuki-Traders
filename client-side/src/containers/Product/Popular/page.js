@@ -74,7 +74,7 @@ const PopularProduct = ({ popularData }) => {
         <Slider {...settings}>
           {popularData?.map((each, index) => (
             <div key={`popular-produts-${index}`}>
-              <CardOne product={each} />
+              <CardOne product={each} className="ml-2 md:ml-0" />
             </div>
           ))}
         </Slider>

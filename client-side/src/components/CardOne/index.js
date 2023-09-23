@@ -5,9 +5,13 @@ import Link from "next/link";
 import { BsChevronRight } from "react-icons/bs";
 import BlurImage from "../BlurImage";
 
-const CardOne = ({ product, target }) => {
+const CardOne = ({ product, target, className }) => {
   return (
-    <div className="group duration-200 w-full border rounded-lg border-gray-300 hover:border-orange-500 text-center mb-10 py-8 cursor-pointer ml-2 md:ml-0">
+    <div
+      className={`group duration-200 w-full border rounded-lg border-gray-300 hover:border-orange-500 text-center py-8 cursor-pointer ${
+        className || ""
+      }`}
+    >
       <Link
         prefetch={false}
         href={`/detail/${product.url_key}`}
@@ -16,7 +20,7 @@ const CardOne = ({ product, target }) => {
         <div className="relative h-[180px] w-2/3 mx-auto">
           <BlurImage image={`${IMAGE_URL}${product.image.path}`} />
         </div>
-        <h3 className=" font-bold my-4 text-center w-56 mx-auto truncate">
+        <h3 className=" font-bold my-4 text-center w-40 md:w-56 mx-auto truncate">
           {product.name}
         </h3>
         {product?.price - product?.sales_price > 0 ? (
