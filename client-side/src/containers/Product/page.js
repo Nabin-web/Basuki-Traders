@@ -30,6 +30,8 @@ const Products = () => {
     if (data?.data) {
       setMainData((prev) => [...prev, ...data?.data]);
     }
+
+    return () => setMainData([]);
   }, [data]);
 
   const handleShowDetails = (urlKey) => {
