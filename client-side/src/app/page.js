@@ -1,7 +1,7 @@
 import HeroSection from "@/components/Hero/page";
 import Navbar from "@/components/Navbar/pages";
-import PopularProduct from "@/components/Product/Popular/page";
-import Products from "@/components/Product/page";
+import PopularProduct from "@/containers/Product/Popular/page";
+import Products from "@/containers/Product/page";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <div>
         <HeroSection />
         <PopularProduct />
-        <Products/>
+        <Products />
       </div>
     </main>
   );

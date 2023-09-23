@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BASE_URL, IMAGE_URL, fetcher, options } from "@/utils/Api";
 import useSWR from "swr";
-import BlurImage from "../BlurImage";
+import BlurImage from "../../components/BlurImage";
 import { BsChevronRight } from "react-icons/bs";
 import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import { FaPlus } from "react-icons/fa";
@@ -79,7 +79,13 @@ const Products = () => {
       </div>
       <div onClick={() => handleViewMore()} className=" text-center">
         <button className=" border border-gray-500 rounded-xl py-2 px-4 flex items-center gap-1 mx-auto group-hover:border-orange-500 ">
-          <FaPlus /> View more
+          {isLoading ? (
+            <> Loading...</>
+          ) : (
+            <>
+              <FaPlus /> View more
+            </>
+          )}
         </button>
       </div>
     </section>
