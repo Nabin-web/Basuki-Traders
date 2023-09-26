@@ -27,19 +27,19 @@ const Products = () => {
   );
 
   useEffect(() => {
-    console.log("jere", data);
+    return () => setMainData([]);
+  }, []);
+
+  useEffect(() => {
     if (data?.data) {
       setMainData((prev) => [...prev, ...data?.data]);
     }
-
-    return () => setMainData([]);
   }, [data]);
 
   const handleViewMore = async () => {
     const qry = queryHelper({ page: qeury?.page + 1, size: 2 });
     setQuey((prev) => ({ ...prev, page: qeury?.page + 1 }));
     const res = await fetch(`${BASE_URL}product?${qry}`, { headers: options });
-    console.log({ res });
     if (res?.success) {
       mutate(
         (data) => {
@@ -47,6 +47,8 @@ const Products = () => {
             ...data,
             data: [...data?.data, ...res?.data],
           };
+
+          return newData;
         },
         { revalidate: false }
       );
