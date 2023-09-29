@@ -64,7 +64,7 @@ export default Navbar;
 export const links = [
   { label: "Home", path: "/" },
   { label: "Products", path: "/products" },
-  { label: "Search", path: "/search" },
+
   { label: "About Us", path: "/about-us" },
   { label: "Our Network", path: "/out-network" },
   { label: "Contact Us", path: "/contact-us" },
