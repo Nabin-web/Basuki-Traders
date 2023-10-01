@@ -395,14 +395,6 @@ productController.searchProducts = async (req, res, next) => {
       };
     }
 
-    if (req.query.find_product_type) {
-      let productTypes = req.query.find_product_type.split(",");
-      searchQuery = {
-        ...searchQuery,
-        product_type: { $in: productTypes },
-      };
-    }
-
     if (req.query.find_type) {
       switch (req.query.find_type) {
         case "price_high_to_low":
@@ -426,27 +418,6 @@ productController.searchProducts = async (req, res, next) => {
           };
           break;
       }
-    }
-
-    if (req.query.max_price) {
-      searchQuery = {
-        ...searchQuery,
-        sales_price: { $lte: req.query.max_price },
-      };
-    }
-
-    if (req.query.min_price) {
-      searchQuery = {
-        ...searchQuery,
-        sales_price: { $gte: req.query.min_price },
-      };
-    }
-
-    if (req.query.max_price && req.query.min_price) {
-      searchQuery = {
-        ...searchQuery,
-        sales_price: { $lte: req.query.max_price, $gte: req.query.min_price },
-      };
     }
 
     selectQuery =
