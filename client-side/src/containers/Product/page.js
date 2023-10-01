@@ -57,7 +57,7 @@ const Products = () => {
 
   return (
     <section className="px-10 mb-10 ">
-      <h1 className="text-2xl mb-10">Popular Product</h1>
+      <h1 className="text-2xl mb-10">Products</h1>
       <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center flex-wrap gap-8">
         {mainData?.map((each, index) => (
           <div key={`products-${index}-${each._id}`}>

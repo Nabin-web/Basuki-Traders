@@ -31,13 +31,14 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link prefetch={false} href="/">
-          <Image
+          {/* <Image
             src="/logo.png"
             width={200}
             height={200}
             alt="Picture of the logo"
             priority
-          />
+          /> */}
+          <div className=" py-4">Ashirbad Traders</div>
         </Link>
         <div className="hidden lg:flex gap-8 items-center">
           {links.map((e) => (
