@@ -387,8 +387,70 @@ productController.searchProducts = async (req, res, next) => {
       };
     }
 
+    if (req.query.find_category) {
+      let categories = req.query.find_category.split(",");
+      searchQuery = {
+        ...searchQuery,
+        category: { $in: categories },
+      };
+    }
+
+    if (req.query.find_product_type) {
+      let productTypes = req.query.find_product_type.split(",");
+      searchQuery = {
+        ...searchQuery,
+        product_type: { $in: productTypes },
+      };
+    }
+
+    if (req.query.find_type) {
+      switch (req.query.find_type) {
+        case "price_high_to_low":
+          sortQuery = {
+            sales_price: -1,
+          };
+          break;
+        case "price_low_to_high":
+          sortQuery = {
+            sales_price: 1,
+          };
+          break;
+        case "latest":
+          sortQuery = {
+            added_at: -1,
+          };
+          break;
+        case "oldest":
+          sortQuery = {
+            added_at: 1,
+          };
+          break;
+      }
+    }
+
+    if (req.query.max_price) {
+      searchQuery = {
+        ...searchQuery,
+        sales_price: { $lte: req.query.max_price },
+      };
+    }
+
+    if (req.query.min_price) {
+      searchQuery = {
+        ...searchQuery,
+        sales_price: { $gte: req.query.min_price },
+      };
+    }
+
+    if (req.query.max_price && req.query.min_price) {
+      searchQuery = {
+        ...searchQuery,
+        sales_price: { $lte: req.query.max_price, $gte: req.query.min_price },
+      };
+    }
+
     selectQuery =
-      "name price sales_price is_popular added_ad url_key product_sku image";
+      "name price sales_price is_popular added_ad url_key product_sku image added_at";
     populate = [{ path: "image", select: "filename path" }];
 
     let data = await otherHelpers.getQuerySendResponse(

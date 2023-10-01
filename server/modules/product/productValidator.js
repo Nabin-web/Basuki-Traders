@@ -15,7 +15,10 @@ validator.validateSaveProduct = async (req, res, next) => {
         name: Joi.string().required().label("Name"),
         url_key: Joi.string().required().label("Url key"),
         product_sku: Joi.string().required().label("Product sku"),
-        price: Joi.number().required().label("Price"),
+        price: Joi.number()
+          .required()
+          .min(Joi.ref("sales_price"))
+          .label("Price"),
         sales_price: Joi.number().required().label("Sales price"),
         description: Joi.string().optional().label("Description"),
         category: Joi.objectId().required().label("Category"),
