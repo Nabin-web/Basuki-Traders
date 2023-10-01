@@ -214,4 +214,23 @@ productTypeController.getDropdown = async (req, res, next) => {
   }
 };
 
+productTypeController.getProductTypePublicDropdown = async (req, res, next) => {
+  try {
+    const productTypes = await productTypeSchema
+      .find({ is_deleted: false, is_active: true })
+      .select("name");
+    return otherHelpers.sendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      productTypes,
+      null,
+      "Product Type get successfull.",
+      null
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = productTypeController;

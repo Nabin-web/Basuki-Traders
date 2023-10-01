@@ -499,4 +499,23 @@ categoryController.getCategoryDropdown = async (req, res, next) => {
   }
 };
 
+categoryController.getCategoryPublicDropdown = async (req, res, next) => {
+  try {
+    const category = await categorySchema
+      .find({ is_deleted: false, is_active: true })
+      .select("title");
+    return otherHelpers.sendResponse(
+      res,
+      httpStatus.OK,
+      true,
+      category,
+      null,
+      "Category get successfull.",
+      null
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = categoryController;

@@ -10,4 +10,10 @@ router.get("/admin/list", categoryController.getCategoryList);
 router.get("/category/:category_id", categoryController.getSingleCategory);
 router.get("/admin/dropdown", categoryController.getCategoryDropdown);
 
+// public api
+router.get(
+  "/category/public/dropdown",
+  categoryController.getCategoryPublicDropdown
+);
+
 module.exports = router;

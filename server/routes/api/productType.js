@@ -13,4 +13,10 @@ router.get("/", productTypeController.getProductType);
 router.get("/:id", productTypeController.getProductTypeDetail);
 router.get("/admin/dropdown", productTypeController.getDropdown);
 
+// public api
+router.get(
+  "/product-type/public/dropdown",
+  productTypeController.getProductTypePublicDropdown
+);
+
 module.exports = router;
