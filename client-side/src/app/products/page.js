@@ -2,6 +2,7 @@
 import Button from "@/components/Button";
 import CardOne from "@/components/CardOne";
 import Checkbox from "@/components/Checkbox";
+import SelectWrapper from "@/components/Select";
 import { SearchMainLoading } from "@/containers/Search/SearchLoading";
 import { BASE_URL, fetcher, options } from "@/utils/Api";
 import { queryHelper } from "@/utils/helpers";
@@ -9,6 +10,13 @@ import { Input, Pagination, Skeleton } from "@mantine/core";
 import React, { useState } from "react";
 import { RiFileCloseLine, RiSearch2Line } from "react-icons/ri";
 import useSWR from "swr";
+
+const listType = [
+  { label: "High to Low", value: "price_high_to_low" },
+  { label: "Low to High", value: "price_low_to_high" },
+  { label: "Latest", value: "latest" },
+  { label: "Oldest", value: "oldest" },
+];
 
 const SearchPage = () => {
   const [searchTxt, setSerchTxt] = useState("");
@@ -132,6 +140,17 @@ const SearchPage = () => {
     }
   };
 
+  const handleDropdown = (name) => async (e) => {
+    const res = await fetch(
+      `${BASE_URL}product/public/search/products?size=10&find_type=${e.value}`,
+      { headers: options }
+    ).then((res) => res.json());
+    if (res?.success) {
+      setCategoryFilter(false);
+      mutate(() => res, { revalidate: false });
+    }
+  };
+
   return (
     <div className="container mx-auto">
       <div className="mb-4 mx-4 md:mx-0">
@@ -151,11 +170,21 @@ const SearchPage = () => {
       </div>
 
       <div className="mt-6 flex-1">
-        <div className="text-xl flex items-center justify-center gap-2 font-semibold mb-4 text-center border-b border-gray-300 pb-3 mx-4 md:mx-0">
-          <RiSearch2Line className="text-orange-500" />
-          {categoryFilter ? "Searching..." : "Search Results"}
+        <div className=" flex items-center justify-between  border-b border-gray-300 pb-3 mb-4 mx-4 md:mx-0">
+          <div className="text-xl flex items-center justify-center gap-2 font-semibold  text-center">
+            <RiSearch2Line className="text-orange-500" />
+            {categoryFilter ? "Searching..." : "Search Results"}
+          </div>
+          <div className=" flex items-center gap-2">
+            <div>Price:</div>
+            <SelectWrapper
+              options={listType || []}
+              labelClassName="text-xs mb-2 flex item-center w-1/3"
+              onChange={handleDropdown("find_type")}
+            />
+          </div>
         </div>
-        <div className=" flex gap-6">
+        <div className=" md:flex md:gap-6">
           <div>
             <h3>Categories</h3>
 
@@ -167,18 +196,20 @@ const SearchPage = () => {
                 <Skeleton height={8} mt={6} radius="xl" />
               </div>
             )}
-            {!categoryLoading &&
-              categoryData?.data?.map((each) => (
-                <div className=" mb-2">
-                  <Checkbox
-                    key={each?._id}
-                    label={each?.title}
-                    name={each?.title}
-                    onChange={handleChecked(each?._id)}
-                    checked={ids.includes(each?._id)}
-                  />
-                </div>
-              ))}
+            <div className="lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-2 flex-wrap mx-2">
+              {!categoryLoading &&
+                categoryData?.data?.map((each) => (
+                  <div className=" mb-2">
+                    <Checkbox
+                      key={each?._id}
+                      label={each?.title}
+                      name={each?.title}
+                      onChange={handleChecked(each?._id)}
+                      checked={ids.includes(each?._id)}
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
           <div className=" flex-1">
             {isLoading && <SearchMainLoading />}
