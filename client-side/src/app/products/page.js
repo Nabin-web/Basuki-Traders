@@ -1,17 +1,20 @@
 "use client";
 import Button from "@/components/Button";
 import CardOne from "@/components/CardOne";
+import Checkbox from "@/components/Checkbox";
 import { SearchMainLoading } from "@/containers/Search/SearchLoading";
 import { BASE_URL, fetcher, options } from "@/utils/Api";
 import { queryHelper } from "@/utils/helpers";
-import { Input, Pagination } from "@mantine/core";
+import { Input, Pagination, Skeleton } from "@mantine/core";
 import React, { useState } from "react";
 import { RiFileCloseLine, RiSearch2Line } from "react-icons/ri";
 import useSWR from "swr";
 
 const SearchPage = () => {
   const [searchTxt, setSerchTxt] = useState("");
+  const [ids, setId] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState(false);
 
   const {
     data: searchData,
@@ -20,6 +23,19 @@ const SearchPage = () => {
   } = useSWR(
     {
       url: `${BASE_URL}product/public/search/products?size=10`,
+      headers: options,
+    },
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  const {
+    data: categoryData,
+    isLoading: categoryLoading,
+    mutate: categoryMutate,
+  } = useSWR(
+    {
+      url: `${BASE_URL}category/category/public/dropdown`,
       headers: options,
     },
     fetcher,
@@ -78,6 +94,44 @@ const SearchPage = () => {
     }
   };
 
+  const handleChecked = (id) => async (e) => {
+    if (e.target.checked) {
+      let query = "";
+      let newId = [...ids, id];
+      newId.map((each, i) => {
+        query = query + `${each}${newId.length - 1 === i ? "" : ","}`;
+      });
+
+      setCategoryFilter(true);
+      setId((prev) => [...prev, id]);
+      const res = await fetch(
+        `${BASE_URL}product/public/search/products?size=10&find_category=${query}`,
+        { headers: options }
+      ).then((res) => res.json());
+      if (res?.success) {
+        setCategoryFilter(false);
+        mutate(() => res, { revalidate: false });
+      }
+    } else {
+      let query = "";
+      let newId = ids.filter((each) => each !== id);
+      newId?.map((each, i) => {
+        query = query + `${each}${newId.length - 1 === i ? "" : ","}`;
+      });
+
+      setCategoryFilter(true);
+      setId([...newId]);
+      const res = await fetch(
+        `${BASE_URL}product/public/search/products?size=10&find_category=${query}`,
+        { headers: options }
+      ).then((res) => res.json());
+      if (res?.success) {
+        setCategoryFilter(false);
+        mutate(() => res, { revalidate: false });
+      }
+    }
+  };
+
   return (
     <div className="container mx-auto">
       <div className="mb-4 mx-4 md:mx-0">
@@ -95,55 +149,82 @@ const SearchPage = () => {
           Search
         </Button>
       </div>
-      <div className="mt-6">
+
+      <div className="mt-6 flex-1">
         <div className="text-xl flex items-center justify-center gap-2 font-semibold mb-4 text-center border-b border-gray-300 pb-3 mx-4 md:mx-0">
           <RiSearch2Line className="text-orange-500" />
-          Search Results
+          {categoryFilter ? "Searching..." : "Search Results"}
         </div>
-        <>
-          {isLoading && <SearchMainLoading />}
-          {data.length > 0 ? (
-            <>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 mx-4 md:mx-0">
-                {data.map((e) => (
-                  <div key={`${e._id}-search`}>
-                    <CardOne product={e} />
-                  </div>
-                ))}
+        <div className=" flex gap-6">
+          <div>
+            <h3>Categories</h3>
+
+            {categoryLoading && (
+              <div className=" mt-2">
+                <Skeleton height={8} radius="xl" />
+                <Skeleton height={8} mt={6} radius="xl" />
+                <Skeleton height={8} mt={6} radius="xl" />
+                <Skeleton height={8} mt={6} radius="xl" />
               </div>
-              <div className="mx-auto w-full flex justify-center my-8">
-                <Pagination
-                  styles={{
-                    control: {
-                      border: "none !important",
-                      borderRadius: "100%",
-                      "&[data-active]": {
-                        backgroundColor: "#2563eb",
-                        cursor: "default",
-                        "&:hover": {
-                          backgroundColor: "#2563eb !important",
+            )}
+            {!categoryLoading &&
+              categoryData?.data?.map((each) => (
+                <div className=" mb-2">
+                  <Checkbox
+                    key={each?._id}
+                    label={each?.title}
+                    name={each?.title}
+                    onChange={handleChecked(each?._id)}
+                    checked={ids.includes(each?._id)}
+                  />
+                </div>
+              ))}
+          </div>
+          <div className=" flex-1">
+            {isLoading && <SearchMainLoading />}
+            {data.length > 0 ? (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 mx-4 md:mx-0">
+                  {data.map((e) => (
+                    <div key={`${e._id}-search`}>
+                      <CardOne product={e} />
+                    </div>
+                  ))}
+                </div>
+                <div className="mx-auto w-full flex justify-center my-8">
+                  <Pagination
+                    styles={{
+                      control: {
+                        border: "none !important",
+                        borderRadius: "100%",
+                        "&[data-active]": {
+                          backgroundColor: "#2563eb",
+                          cursor: "default",
+                          "&:hover": {
+                            backgroundColor: "#2563eb !important",
+                          },
                         },
                       },
-                    },
-                  }}
-                  total={NoOfPages}
-                  onChange={handleChangePage}
-                />
-              </div>
-              {}
-            </>
-          ) : (
-            <>
-              {!isLoading && !loading && (
-                <div className="flex justify-center items-center gap-2 text-gray-500">
-                  <RiFileCloseLine />
-                  Sorry your search did not match any results. Try searching
-                  again.
+                    }}
+                    total={NoOfPages}
+                    onChange={handleChangePage}
+                  />
                 </div>
-              )}
-            </>
-          )}
-        </>
+                {}
+              </>
+            ) : (
+              <>
+                {!isLoading && !loading && (
+                  <div className="flex justify-center items-center gap-2 text-gray-500">
+                    <RiFileCloseLine />
+                    Sorry your search did not match any results. Try searching
+                    again.
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
