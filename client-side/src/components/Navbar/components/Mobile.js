@@ -13,7 +13,7 @@ const Mobile = () => {
   return (
     <div className="block lg:hidden">
       <Burger opened={opened} onClick={toggle} />
-      <Drawer opened={opened} onClose={close} title="" size="sm">
+      <Drawer opened={opened} onClose={close} title="" size="xs">
         <div className="flex flex-col gap-3 px-6">
           {links.map((e) => (
             <Link

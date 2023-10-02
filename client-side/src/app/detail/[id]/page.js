@@ -26,7 +26,7 @@ const ProducDetail = async ({ params: { id } }) => {
 
   return (
     <div className="container mx-auto py-20">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Image
           src={`${IMAGE_URL}${data?.image?.path}`}
           alt={data?.image?.filename}

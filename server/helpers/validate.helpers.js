@@ -65,72 +65,6 @@ validationHelper.validateRequestBody = (req, res, validationModule, opt) => {
   }
 };
 
-validationHelper.validateRequestParams = (req, res, validationModule, opt) => {
-  const options = opt || {
-    abortEarly: false,
-  };
-  const validation = validationModule.validate(req.params, options);
-  if (validation.error) {
-    const errors = validation.error
-      ? internal.buildUsefulErrorObject(validation.error)
-      : null;
-    return errors;
-  } else {
-    return null;
-  }
-};
-
-validationHelper.validateRequestQuery = (req, res, validationModule, opt) => {
-  try {
-    const options = {
-      abortEarly: false,
-    };
-    const validation = validationModule.validate(req.query, options);
-    if (validation.error) {
-      const errors = validation.error
-        ? internal.buildUsefulErrorObject(validation.error.details)
-        : null;
-      return errors;
-    } else {
-      return null;
-    }
-  } catch (err) {
-    throw new err(err);
-  }
-};
-
-validationHelper.requireJsonData = (req, res, next) => {
-  if (req.headers["content-type"] !== "application/json") {
-    return otherHelpers.sendResponse(
-      res,
-      httpStatus.BAD_REQUEST,
-      false,
-      null,
-      `Server requires application/json got ${req.headers["content-type"]}`,
-      "Bad Request.",
-      null
-    );
-  } else {
-    next();
-  }
-};
-
-validationHelper.requireMultipartFormData = (req, res, next) => {
-  if (!req.headers["content-type"].includes("multipart/form-data")) {
-    return otherHelpers.sendResponse(
-      res,
-      httpStatus.BAD_REQUEST,
-      false,
-      null,
-      `Server requires multipart/form-data got ${req.headers["content-type"]}`,
-      "Bad Request.",
-      null
-    );
-  } else {
-    next();
-  }
-};
-
 validationHelper.validation = (data, validationArray) => {
   let errors = {};
   validationArray.forEach((validationObj) => {
@@ -313,36 +247,6 @@ validationHelper.validation = (data, validationArray) => {
     }
   });
   return errors;
-};
-validationHelper.requireJsonData = (req, res, next) => {
-  if (req.headers["content-type"] !== "application/json") {
-    return otherHelpers.sendResponse(
-      res,
-      httpStatus.BAD_REQUEST,
-      false,
-      null,
-      `Server requires application/json got ${req.headers["content-type"]}`,
-      "Bad Request.",
-      null
-    );
-  } else {
-    next();
-  }
-};
-validationHelper.requireMultipartFormData = (req, res, next) => {
-  if (req.headers["content-type"].includes("multipart/form-data")) {
-    return otherHelpers.sendResponse(
-      res,
-      httpStatus.BAD_REQUEST,
-      false,
-      null,
-      `Server requires multipart/form-data got ${req.headers["content-type"]}`,
-      "Bad Request.",
-      null
-    );
-  } else {
-    next();
-  }
 };
 
 module.exports = validationHelper;
