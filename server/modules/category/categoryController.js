@@ -502,8 +502,8 @@ categoryController.getCategoryDropdown = async (req, res, next) => {
 categoryController.getCategoryPublicDropdown = async (req, res, next) => {
   try {
     const category = await categorySchema
-      .find({ is_deleted: false, is_active: true })
-      .select("title");
+      .find({ is_deleted: false, is_active: true, parent_category: null })
+      .select("title parent_category");
     return otherHelpers.sendResponse(
       res,
       httpStatus.OK,
