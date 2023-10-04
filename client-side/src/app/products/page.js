@@ -12,10 +12,10 @@ import { RiFileCloseLine, RiSearch2Line } from "react-icons/ri";
 import useSWR from "swr";
 
 const listType = [
-  { label: "High to Low", value: "price_high_to_low" },
-  { label: "Low to High", value: "price_low_to_high" },
   { label: "Latest", value: "latest" },
   { label: "Oldest", value: "oldest" },
+  { label: "Popular", value: "is_popular" },
+  { label: "UnPopular", value: "unpopular" },
 ];
 
 const SearchPage = () => {
