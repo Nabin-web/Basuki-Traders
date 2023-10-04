@@ -160,6 +160,7 @@ const ProductListing = () => {
             added_at,
             category,
             product_type,
+            weight,
           }) => [
             <div className="w-20 h-20">
               {image?.path ? (
@@ -181,6 +182,7 @@ const ProductListing = () => {
               {name}
             </Link>,
             product_sku,
+            weight ?? "-",
             <div>
               {CURRENCY_SIGN} <span>{commaNumber(price)}</span>
             </div>,
@@ -280,6 +282,7 @@ const ProductListing = () => {
           "Image",
           "Name",
           "SKU",
+          "Weight",
           "Price",
           "Sales Price",
           "Category",

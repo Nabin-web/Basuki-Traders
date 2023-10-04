@@ -7,6 +7,7 @@ import React from "react";
 async function getProductDetail(url_key) {
   const res = await fetch(`${BASE_URL}product/public/${url_key}`, {
     headers: options,
+    cache: "no-store",
   }).then((res) => res.json());
 
   return res?.data ?? {};
@@ -15,6 +16,7 @@ async function getProductDetail(url_key) {
 async function getRelatedProducts(url_key) {
   const res = await fetch(`${BASE_URL}product/public/related/${url_key}`, {
     headers: options,
+    cache: "no-store",
   }).then((res) => res.json());
 
   return res?.data ?? {};
@@ -37,8 +39,10 @@ const ProducDetail = async ({ params: { id } }) => {
         <div className="px-4 md:px-0">
           <h2 className="text-3xl md:text-4xl font-bold mb-7">{data?.name}</h2>
           <div className="grid grid-cols-2 w-full mb-4">
-            <div className="text-base font-semibold text-gray-600">Price :</div>
-            {data?.price - data?.sales_price > 0 ? (
+            <div className="text-base font-semibold text-gray-600">
+              Weight :
+            </div>
+            {/* {data?.price - data?.sales_price > 0 ? (
               <div>
                 <span className="text-lg font-semibold text-orange-500">
                   {CURRENCY_SIGN} {data?.sales_price}
@@ -51,7 +55,8 @@ const ProducDetail = async ({ params: { id } }) => {
               <div className="text-lg font-semibold text-orange-500">
                 {CURRENCY_SIGN} {data?.price}
               </div>
-            )}
+            )} */}
+            <div className="text-lg font-semibold">{data?.weight ?? "-"}</div>
           </div>
           <div className="grid grid-cols-2 w-full mb-4 text-sm">
             <div className="text-base font-semibold text-gray-600">

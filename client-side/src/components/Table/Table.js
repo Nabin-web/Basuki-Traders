@@ -114,7 +114,7 @@ function CustomTable({
           </thead>
         ) : null}
         {loading ? null : tableData && tableData.length > 0 ? (
-          <tbody>
+          <tbody className="text-xs">
             {tableData.map((prop, key) => (
               <tr
                 key={key}

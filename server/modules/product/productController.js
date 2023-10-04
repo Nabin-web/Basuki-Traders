@@ -312,7 +312,7 @@ productController.getRelatedProducts = async (req, res, next) => {
             is_active: true,
             url_key: { $ne: url_key },
           })
-          .select("name price sales_price url_key image")
+          .select("name price sales_price url_key image weight")
           .populate([{ path: "image", select: "filename path" }]);
         return otherHelpers.sendResponse(
           res,

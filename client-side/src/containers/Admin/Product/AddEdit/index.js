@@ -32,6 +32,7 @@ const ProductsAddEdit = ({ product_id }) => {
     product_sku: "",
     image: null,
     product_type: null,
+    weight: "",
   });
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -267,6 +268,16 @@ const ProductsAddEdit = ({ product_id }) => {
             name="sales_price"
             type="number"
             error={errors?.sales_price || null}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <InputWrapper
+            label="Product Weight"
+            value={one?.weight || ""}
+            onChange={handleChange("weight")}
+            name="weight"
+            type="string"
+            error={errors?.weight || null}
           />
         </div>
         <div className="flex gap-4 items-center">
