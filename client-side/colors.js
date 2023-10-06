@@ -3,7 +3,7 @@ module.exports = {
   white: "#fff",
 
   // theme color
-  primary: "#2563eb",
+  primary: "#4C7F24",
   secondary: "#00A6E9",
 
   // action color

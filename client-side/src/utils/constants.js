@@ -22,3 +22,21 @@ export const COUNTRIES = [
     name: "China",
   },
 ];
+
+export const clients = [
+  { name: "Geoex", logo: "/companies/geoex.jpg" },
+  { name: "H", logo: "/companies/H.jpg" },
+  { name: "Hsb Global Standard", logo: "/companies/hsb_global_standards.jpg" },
+  { name: "Post OAK", logo: "/companies/post_oak.jpg" },
+  { name: "Ryder Scott", logo: "/companies/ryder_scott.jpg" },
+  { name: "UTC overseas", logo: "/companies/utc_overseas.jpg" },
+];
+
+export const links = [
+  { label: "Home", path: "/" },
+  { label: "Products", path: "/products" },
+
+  { label: "About Us", path: "/about-us" },
+  { label: "Our Network", path: "/our-network" },
+  { label: "Contact Us", path: "/contact-us" },
+];

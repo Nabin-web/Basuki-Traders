@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Mobile from "./components/Mobile";
+import { links } from "@/utils/constants";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -61,12 +62,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-export const links = [
-  { label: "Home", path: "/" },
-  { label: "Products", path: "/products" },
-
-  { label: "About Us", path: "/about-us" },
-  { label: "Our Network", path: "/our-network" },
-  { label: "Contact Us", path: "/contact-us" },
-];
