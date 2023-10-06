@@ -37,7 +37,7 @@ const About = () => {
       </div>
 
       {/* Our Vision */}
-      <div className="relative grid md:grid-cols-2 sm:grid-cols-1 gap-8 items-center container mx-auto pt-8">
+      <div className="relative grid md:grid-cols-2 sm:grid-cols-1 gap-8 items-center container mx-auto pt-8 mb-8">
         <div className="text-justify">
           <div className=" text-6xl leading-loose tracking-widest ">
             Our <span className=" text-primary">Vision</span>
