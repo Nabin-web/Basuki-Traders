@@ -31,7 +31,7 @@ const Navbar = () => {
       } bg-white/60`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Link prefetch={false} href="/">
+        <Link prefetch={false} href="/" className="py-6">
           {/* <Image
             src="/logo.png"
             width={200}
@@ -39,7 +39,9 @@ const Navbar = () => {
             alt="Picture of the logo"
             priority
           /> */}
-          <div className=" py-4">Ashirbad Traders</div>
+          <div className="text-2xl font-bold text-primary">
+            Ashirbad Traders
+          </div>
         </Link>
         <div className="hidden lg:flex gap-8 items-center">
           {links.map((e) => (
@@ -47,7 +49,7 @@ const Navbar = () => {
               prefetch={false}
               href={e.path}
               className={`${
-                pathname == e.path ? "text-orange-500" : ""
+                pathname == e.path ? "text-primary" : ""
               } duration-300 text-base`}
               key={e.label}
             >

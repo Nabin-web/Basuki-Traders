@@ -38,7 +38,7 @@ const CardOne = ({ product, target, className }) => {
           </div>
         )} */}
         <div className="text-center">{product?.weight ?? "-"}</div>
-        <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
+        <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-primary">
           Show Details <BsChevronRight />
         </button>
       </Link>

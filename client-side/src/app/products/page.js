@@ -172,7 +172,7 @@ const SearchPage = () => {
       <div className="mt-6 flex-1">
         <div className="flex gap-3 lg:gap-0 items-center justify-between  border-b border-gray-300 pb-3 mb-4 mx-4 md:mx-0">
           <div className="text-base lg:text-xl flex items-center gap-2 font-semibold  text-center">
-            <RiSearch2Line className="text-orange-500" />
+            <RiSearch2Line className="text-primary" />
             {categoryFilter ? "Searching..." : "Search Results"}
           </div>
           <div className="flex items-center gap-2">

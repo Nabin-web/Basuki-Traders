@@ -44,7 +44,7 @@ const ProducDetail = async ({ params: { id } }) => {
             </div>
             {/* {data?.price - data?.sales_price > 0 ? (
               <div>
-                <span className="text-lg font-semibold text-orange-500">
+                <span className="text-lg font-semibold text-primary">
                   {CURRENCY_SIGN} {data?.sales_price}
                 </span>
                 <span className="text-gray-400 text-sm ml-2 line-through">
@@ -52,7 +52,7 @@ const ProducDetail = async ({ params: { id } }) => {
                 </span>
               </div>
             ) : (
-              <div className="text-lg font-semibold text-orange-500">
+              <div className="text-lg font-semibold text-primary">
                 {CURRENCY_SIGN} {data?.price}
               </div>
             )} */}

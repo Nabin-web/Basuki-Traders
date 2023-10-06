@@ -20,7 +20,7 @@ const Mobile = () => {
               prefetch={false}
               href={e.path}
               className={`${
-                pathname == e.path ? "text-orange-500" : ""
+                pathname == e.path ? "text-primary" : ""
               } duration-300 text-lg`}
               onClick={close}
               key={e.label}

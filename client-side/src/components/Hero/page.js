@@ -23,7 +23,7 @@ const HeroSection = () => {
         />
         <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-3">
           All your{" "}
-          <span className="text-orange-500 capitalize">grocery needs</span>{" "}
+          <span className="text-primary capitalize">grocery needs</span>{" "}
         </h1>
         <h1 className="text-3xl md:text-5xl font-bold mb-0 lg:mb-4 text-center md:text-left flex items-center justify-center lg:block">
           under one roof.
