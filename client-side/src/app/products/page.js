@@ -196,7 +196,7 @@ const SearchPage = () => {
                 <Skeleton height={8} mt={6} radius="xl" />
               </div>
             )}
-            <div className="lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-2 flex-wrap mx-2">
+            <div className="lg:h-screen lg:overflow-y-scroll lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-2 flex-wrap mx-2 ">
               {!categoryLoading &&
                 categoryData?.data?.map((each) => (
                   <div className=" mb-2">
