@@ -8,7 +8,7 @@ import BlurImage from "../BlurImage";
 const CardOne = ({ product, target, className }) => {
   return (
     <div
-      className={`group duration-200 w-full border rounded-lg border-gray-300 hover:border-orange-500 text-center py-8 cursor-pointer ${
+      className={`group duration-200 w-full border rounded-lg border-gray-300 hover:border-primary text-center py-8 cursor-pointer ${
         className || ""
       }`}
     >

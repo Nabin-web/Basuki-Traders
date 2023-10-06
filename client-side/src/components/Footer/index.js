@@ -47,9 +47,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-10 mb-2 text-center text-sm text-black">
-          Copyright ©2023 All rights reserved | Ashirbad Traders
-        </div>
+      </div>
+      <div className="mt-6 pt-5 border-t border-gray-300 mb-2 text-center text-sm text-black">
+        Copyright ©2023 All rights reserved | Ashirbad Traders
       </div>
     </footer>
   );
