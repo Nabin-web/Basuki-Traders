@@ -6,16 +6,16 @@ import SelectWrapper from "@/components/Select";
 import { SearchMainLoading } from "@/containers/Search/SearchLoading";
 import { BASE_URL, fetcher, options } from "@/utils/Api";
 import { queryHelper } from "@/utils/helpers";
-import { Input, Pagination, Skeleton } from "@mantine/core";
+import { Input, Pagination, Select, Skeleton } from "@mantine/core";
 import React, { useState } from "react";
 import { RiFileCloseLine, RiSearch2Line } from "react-icons/ri";
 import useSWR from "swr";
 
 const listType = [
-  { label: "High to Low", value: "price_high_to_low" },
-  { label: "Low to High", value: "price_low_to_high" },
   { label: "Latest", value: "latest" },
   { label: "Oldest", value: "oldest" },
+  { label: "Popular", value: "is_popular" },
+  { label: "UnPopular", value: "unpopular" },
 ];
 
 const SearchPage = () => {
@@ -140,9 +140,9 @@ const SearchPage = () => {
     }
   };
 
-  const handleDropdown = (name) => async (e) => {
+  const handleDropdown = async (value) => {
     const res = await fetch(
-      `${BASE_URL}product/public/search/products?size=10&find_type=${e.value}`,
+      `${BASE_URL}product/public/search/products?size=10&find_type=${value}`,
       { headers: options }
     ).then((res) => res.json());
     if (res?.success) {
@@ -170,44 +170,41 @@ const SearchPage = () => {
       </div>
 
       <div className="mt-6 flex-1">
-        <div className=" flex items-center justify-between  border-b border-gray-300 pb-3 mb-4 mx-4 md:mx-0">
-          <div className="text-xl flex items-center justify-center gap-2 font-semibold  text-center">
+        <div className="flex gap-3 lg:gap-0 items-center justify-between  border-b border-gray-300 pb-3 mb-4 mx-4 md:mx-0">
+          <div className="text-base lg:text-xl flex items-center gap-2 font-semibold  text-center">
             <RiSearch2Line className="text-orange-500" />
             {categoryFilter ? "Searching..." : "Search Results"}
           </div>
-          <div className=" flex items-center gap-2">
-            <div>Price:</div>
-            <SelectWrapper
-              options={listType || []}
-              labelClassName="text-xs mb-2 flex item-center w-1/3"
-              onChange={handleDropdown("find_type")}
+          <div className="flex items-center gap-2">
+            <div className="hidden lg:block">Sort :</div>
+            <Select
+              data={listType || []}
+              placeholder="Select..."
+              onChange={handleDropdown}
             />
           </div>
         </div>
         <div className=" md:flex md:gap-6">
-          <div>
-            <h3>Categories</h3>
-
+          <div className="mx-4 lg:mx-0 mb-3 lg:mb-0">
+            <h3>Related Categories</h3>
             {categoryLoading && (
-              <div className=" mt-2">
-                <Skeleton height={8} radius="xl" />
-                <Skeleton height={8} mt={6} radius="xl" />
-                <Skeleton height={8} mt={6} radius="xl" />
-                <Skeleton height={8} mt={6} radius="xl" />
+              <div className="mt-3">
+                <Skeleton height={12} radius="xl" />
+                <Skeleton height={12} mt={6} radius="xl" />
+                <Skeleton height={12} mt={6} radius="xl" />
+                <Skeleton height={12} mt={6} radius="xl" />
               </div>
             )}
             <div className="lg:h-screen lg:overflow-y-scroll lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-2 flex-wrap mx-2 ">
               {!categoryLoading &&
                 categoryData?.data?.map((each) => (
-                  <div className=" mb-2">
-                    <Checkbox
-                      key={each?._id}
-                      label={each?.title}
-                      name={each?.title}
-                      onChange={handleChecked(each?._id)}
-                      checked={ids.includes(each?._id)}
-                    />
-                  </div>
+                  <Checkbox
+                    key={each?._id}
+                    label={each?.title}
+                    name={each?.title}
+                    onChange={handleChecked(each?._id)}
+                    checked={ids.includes(each?._id)}
+                  />
                 ))}
             </div>
           </div>
@@ -246,7 +243,7 @@ const SearchPage = () => {
             ) : (
               <>
                 {!isLoading && !loading && (
-                  <div className="flex justify-center items-center gap-2 text-gray-500">
+                  <div className="flex justify-center items-center gap-2 text-gray-500 flex-col lg:flex-row pt-5 text-center lg:text-left mx-6 lg:mx-0">
                     <RiFileCloseLine />
                     Sorry your search did not match any results. Try searching
                     again.

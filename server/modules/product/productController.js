@@ -175,7 +175,7 @@ productController.getProducts = async (req, res, next) => {
     }
 
     selectQuery =
-      "name price sales_price is_active added_at url_key product_sku image";
+      "name price sales_price is_active added_at url_key product_sku image weight";
     populate = [
       { path: "image", select: "path filename" },
       { path: "category", select: "title" },
@@ -312,7 +312,7 @@ productController.getRelatedProducts = async (req, res, next) => {
             is_active: true,
             url_key: { $ne: url_key },
           })
-          .select("name price sales_price url_key image")
+          .select("name price sales_price url_key image weight")
           .populate([{ path: "image", select: "filename path" }]);
         return otherHelpers.sendResponse(
           res,
@@ -343,7 +343,7 @@ productController.getPopularProducts = async (req, res, next) => {
     };
 
     selectQuery =
-      "name price sales_price is_popular added_ad url_key product_sku image";
+      "name price sales_price is_popular added_ad url_key product_sku image weight";
     populate = [{ path: "image", select: "filename path" }];
 
     let data = await otherHelpers.getQuerySendResponse(
@@ -397,16 +397,6 @@ productController.searchProducts = async (req, res, next) => {
 
     if (req.query.find_type) {
       switch (req.query.find_type) {
-        case "price_high_to_low":
-          sortQuery = {
-            sales_price: -1,
-          };
-          break;
-        case "price_low_to_high":
-          sortQuery = {
-            sales_price: 1,
-          };
-          break;
         case "latest":
           sortQuery = {
             added_at: -1,
@@ -417,11 +407,23 @@ productController.searchProducts = async (req, res, next) => {
             added_at: 1,
           };
           break;
+        case "is_popular":
+          searchQuery = {
+            ...searchQuery,
+            is_popular: true,
+          };
+          break;
+        case "unpopular":
+          searchQuery = {
+            ...searchQuery,
+            is_popular: false,
+          };
+          break;
       }
     }
 
     selectQuery =
-      "name price sales_price is_popular added_ad url_key product_sku image added_at";
+      "name price sales_price is_popular added_ad url_key product_sku image added_at weight";
     populate = [{ path: "image", select: "filename path" }];
 
     let data = await otherHelpers.getQuerySendResponse(

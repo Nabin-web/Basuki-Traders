@@ -23,7 +23,7 @@ const CardOne = ({ product, target, className }) => {
         <h3 className=" font-bold my-4 text-center w-40 md:w-56 mx-auto truncate">
           {product.name}
         </h3>
-        {product?.price - product?.sales_price > 0 ? (
+        {/* {product?.price - product?.sales_price > 0 ? (
           <div className="text-center">
             <span>
               {CURRENCY_SIGN} {product.sales_price}{" "}
@@ -36,7 +36,8 @@ const CardOne = ({ product, target, className }) => {
           <div className="text-center">
             {CURRENCY_SIGN} {product?.price}{" "}
           </div>
-        )}
+        )} */}
+        <div className="text-center">{product?.weight ?? "-"}</div>
         <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
           Show Details <BsChevronRight />
         </button>

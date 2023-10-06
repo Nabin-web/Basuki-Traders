@@ -19,7 +19,6 @@ uploaderHelper.uploadFiles = (destinationPath, uploadType, fieldData) => {
   var storage = multer.diskStorage({
     destination: destinationPath,
     filename: async (req, file, cb) => {
-      // Replace invalid characters with an empty string
       const parseName = file.originalname.replace(/[\\/\\&\\?\\$\\%]/g, "");
       cb(null, Date.now() + "-" + parseName);
     },
@@ -27,7 +26,6 @@ uploaderHelper.uploadFiles = (destinationPath, uploadType, fieldData) => {
   const uploader = multer({
     storage: storage,
     fileFilter: function (req, file, cb) {
-      // check valid mime type;
       const isValid = !!mimeType[file.mimetype];
       let error = isValid
         ? null

@@ -6,6 +6,7 @@ import { BASE_URL, options } from "@/utils/Api";
 async function getPopularProducts() {
   const res = await fetch(`${BASE_URL}product/public/list/popular/products`, {
     headers: options,
+    cache: "no-store",
   }).then((res) => res.json());
 
   const data = res?.data || [];

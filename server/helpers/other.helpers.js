@@ -137,19 +137,6 @@ otherHelpers.parseFilters = (req, defaults, is_deleted, default_sort) => {
 
     let sort_order = sort[1] === "desc" ? -1 : 1;
     sortQuery = { [sort_key]: sort_order };
-    // sortQuery = {  sort_key,sort_order:sort_order };
-
-    // let sortfield = req.query.sort.slice(1);
-    // let sortby = req.query.sort.charAt(0);
-    // if (sortby == 1 && !isNaN(sortby) && sortfield) {
-    //   //one is ascending
-    //   sortQuery = sortfield;
-    // } else if (sortby == 0 && !isNaN(sortby) && sortfield) {
-    //   //zero is descending
-    //   sortQuery = '-' + sortfield;
-    // } else {
-    //   sortQuery = '';
-    // }
   }
   return { page, size, sortQuery, searchQuery, selectQuery, populate };
 };

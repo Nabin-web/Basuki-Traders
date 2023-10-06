@@ -13,6 +13,7 @@ const categorySchema = new schema({
     type: schema.Types.ObjectId,
     required: false,
     ref: "category",
+    default: null,
   },
   category_hierarchy: [
     { type: schema.Types.ObjectId, required: false, ref: "category" },

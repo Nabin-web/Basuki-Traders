@@ -24,6 +24,7 @@ validator.validateSaveProduct = async (req, res, next) => {
         category: Joi.objectId().required().label("Category"),
         product_type: Joi.objectId().required().label("Product Type"),
         image: Joi.objectId().required().label("Image"),
+        weight: Joi.string().required().label("Weight"),
       })
       .unknown();
     let errors = await validateRequestBody(req, res, joiModel);

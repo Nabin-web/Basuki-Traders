@@ -67,6 +67,6 @@ export const links = [
   { label: "Products", path: "/products" },
 
   { label: "About Us", path: "/about-us" },
-  { label: "Our Network", path: "/out-network" },
+  { label: "Our Network", path: "/our-network" },
   { label: "Contact Us", path: "/contact-us" },
 ];

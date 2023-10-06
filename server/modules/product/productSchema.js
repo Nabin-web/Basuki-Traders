@@ -43,6 +43,7 @@ const productSchema = new schema({
     },
   ],
   image: { type: schema.Types.ObjectId, required: true, ref: "file" },
+  weight: { type: String, required: true },
 });
 
 module.exports = Product = mongoose.model("product", productSchema);
