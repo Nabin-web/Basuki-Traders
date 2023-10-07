@@ -16,7 +16,7 @@ const OurNetwork = () => {
         <div className="absolute text-white w-full container px-4 lg:px-0 lg:mx-auto">
           <h2 className="font-bold text-2xl lg:text-4xl mb-2">Our Network</h2>
           <div className="font-semibold text-base lg:text-xl">
-            Connecting with people, exporting and importing, fostering growth
+            Connecting with people, exporting and importing and fostering growth
           </div>
         </div>
       </div>
