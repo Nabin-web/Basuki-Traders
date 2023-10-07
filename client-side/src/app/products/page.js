@@ -186,7 +186,7 @@ const SearchPage = () => {
         </div>
         <div className=" md:flex md:gap-6">
           <div className="mx-4 lg:mx-0 mb-3 lg:mb-0">
-            <h3>Related Categories</h3>
+            <h3 className="mb-4">Related Categories</h3>
             {categoryLoading && (
               <div className="mt-3">
                 <Skeleton height={12} radius="xl" />
@@ -195,7 +195,7 @@ const SearchPage = () => {
                 <Skeleton height={12} mt={6} radius="xl" />
               </div>
             )}
-            <div className="lg:h-screen lg:overflow-y-scroll lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-2 flex-wrap mx-2 ">
+            <div className="lg:h-screen lg:overflow-y-scroll lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-4 flex-wrap mx-2 ">
               {!categoryLoading &&
                 categoryData?.data?.map((each) => (
                   <Checkbox

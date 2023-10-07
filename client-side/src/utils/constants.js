@@ -37,6 +37,7 @@ export const links = [
   { label: "Products", path: "/products" },
 
   { label: "About Us", path: "/about-us" },
+  { label: "Something", path: "/something" },
   { label: "Our Network", path: "/our-network" },
   { label: "Contact Us", path: "/contact-us" },
 ];
