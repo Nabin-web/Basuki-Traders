@@ -2,6 +2,7 @@ import RootStyleRegistry from "@/containers/MantineProvider";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/pages";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "500" });
 
@@ -15,8 +16,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} relative`}>
         <RootStyleRegistry withGlobalStyles withNormalizeCSS>
-          <Navbar />
-          {children}
+          <main
+            className="grid grid-cols-1 min-h-screen min-w-lg"
+            style={{
+              gridTemplateRows: "auto 1fr auto",
+            }}
+          >
+            <Navbar />
+            {children}
+            <Footer />
+          </main>
         </RootStyleRegistry>
       </body>
     </html>

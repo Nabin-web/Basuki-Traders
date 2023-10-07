@@ -66,7 +66,7 @@ const Products = () => {
         ))}
       </div>
       <div onClick={() => handleViewMore()} className="mt-6 text-center">
-        <button className=" border border-gray-500 rounded-xl py-2 px-4 flex items-center gap-1 mx-auto group-hover:border-orange-500 ">
+        <button className=" border border-gray-500 rounded-xl py-2 px-4 flex items-center gap-1 mx-auto group-hover:border-primary ">
           {isLoading ? (
             <> Loading...</>
           ) : (

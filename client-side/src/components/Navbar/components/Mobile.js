@@ -2,9 +2,9 @@
 import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger, Drawer } from "@mantine/core";
-import { links } from "../pages";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { links } from "@/utils/constants";
 
 const Mobile = () => {
   const [opened, { toggle, close }] = useDisclosure();
@@ -20,7 +20,7 @@ const Mobile = () => {
               prefetch={false}
               href={e.path}
               className={`${
-                pathname == e.path ? "text-orange-500" : ""
+                pathname == e.path ? "text-primary" : ""
               } duration-300 text-lg`}
               onClick={close}
               key={e.label}

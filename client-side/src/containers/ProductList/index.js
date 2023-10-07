@@ -24,7 +24,7 @@ const ProductListing = () => {
           </h1>
           <div className="pr-4 text-sm flex flex-col gap-2">
             {[1, 2, 3, 4, 5].map((each, i) => (
-              <div className=" hover:text-orange-500 cursor-pointer" key={each}>
+              <div className=" hover:text-primary cursor-pointer" key={each}>
                 Category
               </div>
             ))}

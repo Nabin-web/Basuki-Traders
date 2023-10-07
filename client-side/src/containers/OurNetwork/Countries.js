@@ -2,15 +2,21 @@
 import { COUNTRIES } from "@/utils/constants";
 import React from "react";
 import Marquee from "react-fast-marquee";
+import { TbArrowsExchange2 } from "react-icons/tb";
 
 const Countries = () => {
   return (
-    <div className="mt-14">
-      <h4 className="text-2xl text-primary font-bold mb-8 text-center border-b border-gray-300 pb-2">
-        Countries that we import from and export to
+    <div className="my-20">
+      <h4 className="text-2xl text-primary font-bold mb-1 flex items-center gap-2">
+        Import
+        <TbArrowsExchange2 className="text-3xl" />
+        Export
       </h4>
+      <div className="text-base text-gray-500 mb-3">
+        Our products are imported from and exported to these countries.
+      </div>
       <Marquee
-        className="h-full overflow-hidden"
+        className="h-full overflow-hidden border-b border-t py-10 border-gray-300"
         pauseOnHover
         gradient
         gradientWidth={300}

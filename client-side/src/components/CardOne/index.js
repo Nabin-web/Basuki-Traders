@@ -8,7 +8,7 @@ import BlurImage from "../BlurImage";
 const CardOne = ({ product, target, className }) => {
   return (
     <div
-      className={`group duration-200 w-full border rounded-lg border-gray-300 hover:border-orange-500 text-center py-8 cursor-pointer ${
+      className={`group duration-200 w-full border rounded-lg border-gray-300 hover:border-primary text-center py-8 cursor-pointer ${
         className || ""
       }`}
     >
@@ -38,7 +38,7 @@ const CardOne = ({ product, target, className }) => {
           </div>
         )} */}
         <div className="text-center">{product?.weight ?? "-"}</div>
-        <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-orange-500">
+        <button className="flex justify-center w-full items-center gap-2 text-sm mt-8 hover:text-primary">
           Show Details <BsChevronRight />
         </button>
       </Link>
