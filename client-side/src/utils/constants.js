@@ -37,7 +37,7 @@ export const links = [
   { label: "Products", path: "/products" },
 
   { label: "About Us", path: "/about-us" },
-  { label: "Something", path: "/something" },
+  { label: "Sectors", path: "/sectors" },
   { label: "Our Network", path: "/our-network" },
   { label: "Contact Us", path: "/contact-us" },
 ];
@@ -58,5 +58,43 @@ export const NumberAmimate = [
     key: "Merchants",
     initialValue: 0,
     currentValue: 20,
+  },
+];
+
+export const Sectors = [
+  {
+    name: "Sector A",
+    logo: "/aboutus.jpg",
+    description:
+      "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of NorwayWith Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway",
+  },
+  {
+    name: "Sector B",
+    logo: "/company.jpg",
+    description:
+      "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway",
+  },
+  {
+    name: "Sector C",
+    logo: "/containers.jpg",
+    description: "With Fjord Tours you can explore more of the magical",
+  },
+  {
+    name: "Sector D",
+    logo: "/herosection.png",
+    description:
+      "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway",
+  },
+  {
+    name: "Sector E",
+    logo: "/company.jpg",
+    description:
+      "With Fjord Tours you can explore more of the magical fjord landscapes with tours ",
+  },
+  {
+    name: "Sector F",
+    logo: "/aboutus.jpg",
+    description:
+      "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway",
   },
 ];
