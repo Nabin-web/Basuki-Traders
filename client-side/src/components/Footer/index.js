@@ -6,9 +6,9 @@ import { BsDot } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <footer className="pb-8 pt-16 border-t mt-10 border-gray-300 shadow-md">
+    <footer className="pb-8 pt-10 lg:pt-16 border-t mt-10 border-gray-300 shadow-md">
       <div className="container mx-auto">
-        <div className="flex gap-4 justify-between w-full flex-wrap">
+        <div className="flex px-4 lg:px-0 gap-4 justify-between w-full flex-wrap">
           <div>
             <div className="pb-2 text-2xl font-bold text-primary">
               Ashirbad Traders
@@ -17,7 +17,7 @@ const Footer = () => {
               Trading made easy with our services.
             </p>
           </div>
-          <div>
+          <div className="hidden lg:block">
             <div className="font-semibold mb-2">Quick Links</div>
             <div className="flex flex-col gap-2">
               {links.map((e) => (

@@ -7,13 +7,12 @@ import AnimatedNumber from "react-animated-number";
 
 const CompanyNetworks = () => {
   return (
-    <div className=" mb-8">
-      <div className="relative h-96 ">
-        <div className=" grid grid-cols-2 gap-6 text-xl capitalize text-left absolute top-16 right-8 z-20 text-black tracking-wider leading-loose">
+    <div className="mb-16 mt-8">
+      <div className="relative h-96 flex justify-end items-center">
+        <div className="grid grid-cols-2 gap-6 text-xl capitalize text-left absolute pr-4 lg:pr-20 z-20 text-black tracking-wider leading-loose">
           {NumberAmimate.map((each) => (
             <div key={each.key}>
               <div>{each.key}</div>
-
               <div className=" flex items-center text-primary">
                 <AnimatedNumber
                   component="text"
@@ -21,7 +20,7 @@ const CompanyNetworks = () => {
                   value={each.currentValue}
                   stepPrecision={0}
                   style={{
-                    transition: "0.8s ease-out",
+                    transition: "1.5s ease-out",
                     fontSize: 48,
                     transitionProperty: "background-color, color, opacity",
                   }}

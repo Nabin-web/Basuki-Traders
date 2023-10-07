@@ -11,7 +11,7 @@ const Companies = () => {
       <div className="text-base text-gray-500 mb-6 text-center">
         Trust us like this companies did.
       </div>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 mx-4 lg:mx-0 lg:grid-cols-3 gap-8">
         {clients.map((e) => (
           <div className="relative w-full h-[100px]" key={e.name}>
             <Image

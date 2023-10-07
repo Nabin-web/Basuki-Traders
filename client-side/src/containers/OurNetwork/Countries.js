@@ -6,7 +6,7 @@ import { TbArrowsExchange2 } from "react-icons/tb";
 
 const Countries = () => {
   return (
-    <div className="my-20">
+    <div className="mb-20 mt-14 lg:mt-20 mx-4">
       <h4 className="text-2xl text-primary font-bold mb-1 flex items-center gap-2">
         Import
         <TbArrowsExchange2 className="text-3xl" />

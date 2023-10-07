@@ -1,22 +1,24 @@
 import Image from "next/image";
-import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import Button from "../Button";
 
 const Slogan = () => {
   return (
-    <div className=" mb-8">
-      <div className="relative h-96 ">
-        <div className=" text-4xl capitalize text-left absolute top-16 left-8 z-20 text-white tracking-wider leading-loose font-bold">
-          <span>Connecting </span>
-          <span className=" text-primary">Worlds, </span> <br />
-          <span>Delivering </span>
-          <span className=" text-primary">Possibilities</span>
-          <div>
-            <Button className="px-6 py-4 text-3xl flex items-center gap-2 rounded-lg bg-primary hover:underline hover:opacity-40">
-              Join us <FaArrowRight />
-            </Button>
-          </div>
+    <div className="mb-16 mt-8">
+      <div className="relative h-96 flex items-center">
+        <div className="w-full h-full bg-black/30 z-10" />
+        <div className="capitalize text-left absolute z-20 pl-4 lg:pl-20 text-white tracking-wider font-bold">
+          <h3 className="mb-3 text-3xl">
+            <span>Connecting </span>
+            <span className="">Worlds, </span>
+          </h3>
+          <h3 className="mb-5 text-3xl">
+            <span>Delivering </span>
+            <span className="">Possibilities</span>
+          </h3>
+          <Button className="px-6 py-4 text-xl flex items-center gap-2 rounded-lg bg-primary hover:shadow-lg">
+            Join us <FaArrowRight />
+          </Button>
         </div>
         <Image
           src="/containers.jpg"
