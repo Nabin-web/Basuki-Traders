@@ -98,3 +98,19 @@ export const Sectors = [
       "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway",
   },
 ];
+
+export const AboutUsText = {
+  text1:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book.",
+
+  text2:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard ",
+};
+
+export const Visions = {
+  text1:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book.",
+
+  text2:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard ",
+};

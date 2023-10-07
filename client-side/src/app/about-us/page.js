@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { AboutUsText, Visions } from "@/utils/constants";
 
 const About = () => {
   return (
@@ -19,20 +20,16 @@ const About = () => {
           <div className=" text-6xl leading-loose tracking-widest ">
             About <span className=" text-primary">Us</span>
           </div>
-          <p className=" mb-4 text-sm leading-loose tracking-wide">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </p>
-          <p className=" mb-4 text-sm leading-loose tracking-wide">
-            It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. It was
-            popularised in the 1960s with the release of Letraset sheets
-            containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum.
-          </p>
+          {AboutUsText.text1 && (
+            <p className=" mb-4 text-sm leading-loose tracking-wide">
+              {AboutUsText.text1}
+            </p>
+          )}
+          {AboutUsText.text2 && (
+            <p className=" mb-4 text-sm leading-loose tracking-wide">
+              {AboutUsText.text2}
+            </p>
+          )}
         </div>
       </div>
 
@@ -42,20 +39,16 @@ const About = () => {
           <div className=" text-6xl leading-loose tracking-widest ">
             Our <span className=" text-primary">Vision</span>
           </div>
-          <p className=" mb-4 text-sm leading-loose tracking-wide">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </p>
-          <p className=" mb-4 text-sm leading-loose tracking-wide">
-            It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. It was
-            popularised in the 1960s with the release of Letraset sheets
-            containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum.
-          </p>
+          {Visions.text1 && (
+            <p className=" mb-4 text-sm leading-loose tracking-wide">
+              {Visions.text1}
+            </p>
+          )}
+          {Visions.text2 && (
+            <p className=" mb-4 text-sm leading-loose tracking-wide">
+              {Visions.text2}
+            </p>
+          )}
         </div>
 
         <div className="relative w-full md:h-[500px] sm:h-[300px] sm:mt-6 flex justify-center md:items-center">
