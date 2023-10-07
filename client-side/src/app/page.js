@@ -1,4 +1,6 @@
 import HeroSection from "@/components/Hero/page";
+import Slogan from "@/components/Slogan";
+import CompanyNetwork from "@/components/CompanyNetwork";
 import PopularProduct from "@/containers/Product/Popular/page";
 import Products from "@/containers/Product/page";
 import { BASE_URL, options } from "@/utils/Api";
@@ -19,7 +21,9 @@ export default async function Home() {
   return (
     <main className="container mx-auto">
       <HeroSection />
+      <CompanyNetwork />
       <PopularProduct popularData={popularData} />
+      <Slogan />
       <Products />
     </main>
   );

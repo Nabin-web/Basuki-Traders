@@ -14,7 +14,7 @@ import CardOne from "@/components/CardOne";
 const Products = () => {
   const [qeury, setQuey] = useState({
     page: 1,
-    size: 2,
+    size: 4,
   });
   const [mainData, setMainData] = useState([]);
   const { data, mutate, isLoading } = useSWR(

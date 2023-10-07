@@ -40,3 +40,22 @@ export const links = [
   { label: "Our Network", path: "/our-network" },
   { label: "Contact Us", path: "/contact-us" },
 ];
+
+export const NumberAmimate = [
+  { key: "Countries", initialValue: 0, currentValue: 8 },
+  {
+    key: "Experience",
+    initialValue: 0,
+    currentValue: 10,
+  },
+  {
+    key: "Products",
+    initialValue: 0,
+    currentValue: 200,
+  },
+  {
+    key: "Merchants",
+    initialValue: 0,
+    currentValue: 20,
+  },
+];
