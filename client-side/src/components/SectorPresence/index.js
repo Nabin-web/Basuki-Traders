@@ -12,7 +12,7 @@ const SectorPresence = () => {
       <h1 className="mb-4 text-4xl leading-loose tracking-widest text-center pb-4 border-b border-primary">
         Our <span className=" text-primary">Sectors</span>
       </h1>
-      <div className=" grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 lg:gap-4 px-4 lg:px-0">
         {Sectors.map((each, index) => (
           <Card shadow="sm" padding="lg" radius="md" withBorder key={index}>
             <Card.Section className=" relative h-40  ">

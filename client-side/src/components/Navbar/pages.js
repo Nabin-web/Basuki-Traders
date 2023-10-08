@@ -28,7 +28,7 @@ const Navbar = () => {
     <header
       className={`sticky px-4 lg:px-0 top-0 z-20 ${
         offset > 20 ? "shadow-md backdrop-blur-sm" : ""
-      } bg-white/60 z-[999]`}
+      } bg-white/60 z-[100]`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link prefetch={false} href="/" className="py-6">

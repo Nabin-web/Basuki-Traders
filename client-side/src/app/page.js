@@ -22,11 +22,11 @@ export default async function Home() {
   return (
     <main className="container mx-auto">
       <HeroSection />
-      <HomeAboutUs />
-      <CompanyNetwork />
       <PopularProduct popularData={popularData} />
       <Slogan />
       <Products />
+      <HomeAboutUs />
+      <CompanyNetwork />
     </main>
   );
 }

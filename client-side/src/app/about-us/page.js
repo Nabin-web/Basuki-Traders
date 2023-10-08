@@ -17,7 +17,7 @@ const About = () => {
         </div>
 
         <div className="text-justify px-4 lg:px-0">
-          <div className="text-4xl lg:text-6xl leading-loose tracking-widest ">
+          <div className="text-4xl lg:text-6xl leading-loose tracking-widest mb-4">
             About <span className=" text-primary">Us</span>
           </div>
           {AboutUsText.text1 && (
@@ -36,7 +36,7 @@ const About = () => {
       {/* Our Visions */}
       <div className="relative grid md:grid-cols-2 sm:grid-cols-1 gap-8 items-center container mx-auto pt-8 mb-8">
         <div className="text-justify px-4 lg:px-0">
-          <div className="text-4xl lg:text-6xl leading-loose tracking-widest ">
+          <div className="text-4xl lg:text-6xl leading-loose tracking-widest mb-4">
             Our <span className=" text-primary">Vision</span>
           </div>
           {Visions.text1 && (

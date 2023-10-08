@@ -5,8 +5,8 @@ import { RiArrowRightDoubleFill } from "react-icons/ri";
 
 const HomeAboutUs = () => {
   return (
-    <div className="mt-10 mb-20">
-      <div className="text-center text-5xl font-bold capitalize mb-4">
+    <div className="mt-28 mb-10">
+      <div className="text-center text-5xl font-bold capitalize mb-6">
         Who we are
       </div>
       <div className="mb-5 mx-auto max-w-5xl text-center">
