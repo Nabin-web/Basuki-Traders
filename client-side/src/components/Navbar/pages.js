@@ -44,18 +44,35 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="hidden lg:flex gap-8 items-center">
-          {links.map((e) => (
-            <Link
-              prefetch={false}
-              href={e.path}
-              className={`${
-                pathname == e.path ? "text-primary" : ""
-              } duration-300 text-base`}
-              key={e.label}
-            >
-              {e.label}
-            </Link>
-          ))}
+          {links.map((e) => {
+            if (e.label === "Contact Us") {
+              return (
+                <Link
+                  prefetch={false}
+                  href={e.path}
+                  className={` bg-primary rounded-lg px-4 py-2 text-white${
+                    pathname == e.path ? "underline text-bold" : ""
+                  } duration-300 text-base`}
+                  key={e.label}
+                >
+                  {e.label}
+                </Link>
+              );
+            } else {
+              return (
+                <Link
+                  prefetch={false}
+                  href={e.path}
+                  className={`${
+                    pathname == e.path ? "text-primary" : ""
+                  } duration-300 text-base`}
+                  key={e.label}
+                >
+                  {e.label}
+                </Link>
+              );
+            }
+          })}
         </div>
         <Mobile />
       </div>
