@@ -413,10 +413,10 @@ productController.searchProducts = async (req, res, next) => {
             is_popular: true,
           };
           break;
-        case "unpopular":
-          searchQuery = {
-            ...searchQuery,
-            is_popular: false,
+        case "default":
+          delete searchQuery.is_popular;
+          sortQuery = {
+            added_at: -1,
           };
           break;
       }

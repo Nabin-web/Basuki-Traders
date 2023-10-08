@@ -4,6 +4,7 @@ import CompanyNetwork from "@/components/CompanyNetwork";
 import PopularProduct from "@/containers/Product/Popular/page";
 import Products from "@/containers/Product/page";
 import { BASE_URL, options } from "@/utils/Api";
+import HomeAboutUs from "@/containers/HomeAboutUs";
 
 async function getPopularProducts() {
   const res = await fetch(`${BASE_URL}product/public/list/popular/products`, {
@@ -21,6 +22,7 @@ export default async function Home() {
   return (
     <main className="container mx-auto">
       <HeroSection />
+      <HomeAboutUs />
       <CompanyNetwork />
       <PopularProduct popularData={popularData} />
       <Slogan />

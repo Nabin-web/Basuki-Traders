@@ -12,10 +12,10 @@ import { RiFileCloseLine, RiSearch2Line } from "react-icons/ri";
 import useSWR from "swr";
 
 const listType = [
+  { label: "Default", value: "default" },
   { label: "Latest", value: "latest" },
   { label: "Oldest", value: "oldest" },
   { label: "Popular", value: "is_popular" },
-  { label: "UnPopular", value: "unpopular" },
 ];
 
 const SearchPage = () => {
@@ -195,7 +195,7 @@ const SearchPage = () => {
                 <Skeleton height={12} mt={6} radius="xl" />
               </div>
             )}
-            <div className="lg:h-screen lg:overflow-y-scroll lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-4 flex-wrap mx-2 ">
+            <div className="lg:h-screen lg:flex lg:flex-col lg:items-start lg:gap-2 flex items-center gap-4 flex-wrap mx-2 ">
               {!categoryLoading &&
                 categoryData?.data?.map((each) => (
                   <Checkbox
@@ -226,11 +226,8 @@ const SearchPage = () => {
                         border: "none !important",
                         borderRadius: "100%",
                         "&[data-active]": {
-                          backgroundColor: "#2563eb",
-                          cursor: "default",
-                          "&:hover": {
-                            backgroundColor: "#2563eb !important",
-                          },
+                          backgroundColor: "#4C7F24",
+                          cursor: "pointer",
                         },
                       },
                     }}

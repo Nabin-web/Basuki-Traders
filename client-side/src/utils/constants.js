@@ -114,3 +114,10 @@ export const Visions = {
   text2:
     " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard ",
 };
+
+export const whoWeAreText = {
+  text1:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard ",
+  text2:
+    " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typeand scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard ",
+};
