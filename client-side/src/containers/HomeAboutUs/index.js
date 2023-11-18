@@ -9,10 +9,10 @@ const HomeAboutUs = () => {
       <div className="text-center text-5xl font-bold capitalize mb-6">
         Who we are
       </div>
-      <div className="mb-5 mx-auto max-w-5xl text-center">
+      <div className="mb-5 mx-auto max-w-5xl text-center leading-loose">
         {whoWeAreText.text1}
       </div>
-      <div className="mb-6 mx-auto max-w-6xl text-center">
+      <div className="mb-6 mx-auto max-w-6xl text-center leading-loose">
         {whoWeAreText.text2}
       </div>
       <div className="flex items-center justify-center">
